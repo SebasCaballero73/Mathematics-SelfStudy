@@ -1,0 +1,163 @@
+\ProvidesPackage{color-tufte}[2021/03/11 Color Tufte]
+
+%%%%%%%%%%%%%%%%
+% Requirements %
+%%%%%%%%%%%%%%%%
+
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{framed} 
+\RequirePackage{amsthm} 
+\RequirePackage{amssymb}
+\RequirePackage[many]{tcolorbox}
+\RequirePackage{fontawesome}
+%%%%%%%%%%%%%%%%%%
+%  Environments  %
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%% THEOREM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{\faCubes\, Theorem}[section]
+\tcolorboxenvironment{theorem}{
+	boxrule=0pt,
+	boxsep=2pt,
+	colback={White!90!RoyalPurple},
+	enhanced jigsaw, 
+	borderline west={2pt}{0pt}{RoyalPurple},
+	sharp corners,
+	before skip=10pt,
+	after skip=10pt,
+	breakable,
+	}
+
+%%%%%%%%%%%%%%% AXIOM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{axiom}{\faStar \, Axiom}[section]
+\tcolorboxenvironment{axiom}{
+	boxrule=0pt,
+	boxsep=2pt,
+	colback={White},
+	enhanced jigsaw, 
+	borderline={1pt}{1pt}{Black},
+	sharp corners,
+	before skip=10pt,
+	after skip=10pt,
+	breakable,
+	}
+%%%%%%%%%%%%% DEFINITION %%%%%%%%%%%%%%%
+\newtheorem{definition}{\faBook \, Definition}[section]
+\tcolorboxenvironment{definition}{
+  boxrule=0pt,
+  boxsep=2pt,
+  colback={White!85!Emerald},
+  enhanced jigsaw, 
+  borderline west={2pt}{0pt}{Emerald},
+  sharp corners,
+  before skip=10pt,
+  after skip=10pt,
+  breakable,
+}
+%%%%%%%%%%%%%% COROLLARY %%%%%%%%%%%%%%%%%%
+\newtheorem{corollary}{\faThLarge \, Corollary}[section]
+\tcolorboxenvironment{corollary}{
+	boxrule=0pt,
+	boxsep=2pt,
+	colback={White!90!Yellow},
+	enhanced jigsaw, 
+	borderline west={2pt}{0pt}{Yellow},
+	sharp corners,
+	before skip=10pt,
+	after skip=10pt,
+	breakable,
+	}
+%%%%%%%%%%%%% PROPOSITIONS %%%%%%%%%%%%%%%%%%%
+\newtheorem{proposition}{\faCube\, Proposition}[section]
+\tcolorboxenvironment{proposition}{
+	boxrule=0pt,
+	boxsep=2pt,
+	colback={PineGreen!20},
+	enhanced jigsaw, 
+	borderline west={2pt}{0pt}{PineGreen},
+	sharp corners,
+	before skip=10pt,
+	after skip=10pt,
+	breakable,
+	}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem*{remark}{\faLightbulbO \, Remark}
+\tcolorboxenvironment{remark}{
+	boxrule=0pt,
+	boxsep=2pt,
+	colback={White!70!RoyalBlue},
+	enhanced jigsaw, 
+	borderline west={2pt}{0pt}{RoyalBlue},
+	sharp corners,
+	before skip=10pt,
+	after skip=10pt,
+	breakable,
+}
+
+%%%%%%%% Problem %%%%%%%%%%%%%
+\newtheorem{problem}{\faModx \, Problem}
+\tcolorboxenvironment{problem}{
+	boxrule=0pt,
+	boxsep=4pt,
+	colback={White!85!Red},
+	enhanced jigsaw, 
+	borderline west={2pt}{0pt}{Red},
+	sharp corners,
+	before skip=10pt,
+	after skip=10pt,
+	breakable,
+}
+
+% \newenvironment{problem}
+% {\colorlet{shadecolor}{White!50!CadetBlue}\begin{shaded}\begin{prob}}
+% {\end{prob}\end{shaded}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}
+\newcommand{\docenv}[1]{\textsf{#1}}
+\newcommand{\docpkg}[1]{\texttt{#1}}
+\newcommand{\doccls}[1]{\texttt{#1}}
+\newcommand{\docclsopt}[1]{\texttt{#1}}
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}
+
+\setcounter{secnumdepth}{2}
+\usepackage{xcolor}
+\definecolor{g1}{HTML}{077358}
+\definecolor{g2}{HTML}{00b096}
+
+
+\titleformat{\section}%
+{\normalfont\Large\itshape\color{g1}}
+{\llap{\colorbox{g1}{\parbox{1.5cm}{\hfill\color{white}\thesection}}}}% label
+{1em}% horizontal separation between label and title body
+{}% before the title body
+[]% after the title body
+
+% subsection format
+\titleformat{\subsection}%
+{\normalfont\large\itshape\color{g2}}% format applied to label+text
+{\llap{\colorbox{g2}{\parbox{1.5cm}{\hfill\color{white}\thesubsection}}}}% label
+{1em}% horizontal separation between label and title body
+{}% before the title body
+[]
+
+\hypersetup{
+    pdfpagemode=FullScreen,
+	bookmarks=true,
+	bookmarksopen=true
+}
+
+\usepackage{graphicx} % allow embedded images
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\usepackage{amsmath}  % extended mathematics
+\usepackage{booktabs} % book-quality tables
+\usepackage{units}    % non-stacked fractions and better unit spacing
+\usepackage{multicol} % multiple column layout facilities
+\usepackage{lipsum}   % filler text
+\usepackage{fancyvrb} % extended verbatim environments
+\fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+\graphicspath{ {./resources} }

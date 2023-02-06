@@ -1,0 +1,518 @@
+\documentclass{tufte-handout}
+
+\title{Course:  Set Theory(Real Numbers)}
+\author{Sebastián Caballero}
+\date{\today}
+
+\usepackage{color-tufte}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+A simple notes template. Inspired by Tufte-\LaTeX class and beautiful notes by \begin{verbatim*}
+	https://github.com/abrandenberger/course-notes
+\end{verbatim*}
+\end{abstract}
+\section{The big deal}
+So far, our numerical system is large and we can fulfill many of the mathematic needs that a person could face in their life. But we have problems with the completeness of the rational numbers. Take for example $\sqrt{2}$, which is not a rational number but it is very important in daily mathematics, or numbers like $\pi$ and $e$.\\
+
+What is the deal then? We have described natural numbers in terms of sets, integers in terms of naturals and rationals in terms of integers, is it possible to do it with the real numbers? Yes! But it is not as intuitive as it seems, because we have two types of numbers to be described in this set: rational and irrationals. The first ones are easy and we have already constructed them but the later are so far complicated. How you can describe what is $\sqrt{2}$ or $e$? This is our objective and we are going to analyze two forms to do this that will be led us to the same structure.
+
+\section{Dedekind Cuts}
+The most intuitive, set theory closer and used construction is the one made by Dedekind. His work was inspired by the greeks and it does not require prior knowledge of other areas like analysis.\\
+
+The general intuition starts like:
+\begin{quote}
+	We think of the real numbers as points in the real line. Each point in this line is just a real number and they are ordered in a way that if a number is more to the right than other, that number is greater. And if we take a real number, we can divide the real line into two parts: the set of numbers that are lesser and the remaining ones.
+\end{quote}
+
+This ridiculous obvious intuition is our most powerful tool. First, a real number is unique characterized by the numbers lesser than it. We can try to adjust this intuition just with rational numbers and not with the real numbers(Because we are trying to describe real numbers themselves). 
+
+\begin{definition}[Dedekind cut]
+	Let $C$ be a set. We say that $C$ is a Dedekind cut if and only if:
+	\begin{itemize}
+		\item $C \subset \mathbb{Q}$ and $C \neq \emptyset$
+		\item For all $x, y \in \mathbb{Q}$ if $x \le y$ and $y \in C$, then $x \in C$
+		\item For all $x \in \mathbb{Q}$, if $x \in C$ then there is $a \in \mathbb{Q}$ such that $a \in C$ and $x < a$
+	\end{itemize}
+\end{definition}
+
+In other words, we have defined a cut to be a subset nonempty of $\mathbb{Q}$ that is closed to the left, so we characterized it by the elements that are lesser than it and it has no maximum element(This is for give a description of elements that are not in $\mathbb{Q}$ like $\sqrt{2}$). There are some useful properties that has the cuts:
+\begin{theorem}
+	Let $C$ be a Dedekind cut. For all $s \in \mathbb{Q}$, if $s \not \in C$ then $s > r$ for all $r \in \mathbb{Q}$
+\end{theorem}
+\begin{proof}
+	Suppose that there is some $r \in C$ such that $s \le r$. Then we would have by closure to the left that $s \in C$ which is a contradiction.
+\end{proof}
+
+Another important proof is what is called \textit{Positive distance in Cuts}
+\begin{theorem}[Positive distance in Cuts]
+	Let $r \in \mathbb{Q}^+$ and $C$ a cut. Then there are $x, y \in \mathbb{Q}$ with $x \in C$ and $y \not \in C$ such that $y \neq \sup C$ and $y - x = r$
+\end{theorem}
+\begin{proof}
+	Since $C$ is nonempty take $s \in C$ and denote then $s_n = s+nr$ for $n \in \mathbb{N}$. Note that for $n = 0$, $s_n \in C$ and also thanks to archimedean property of $\mathbb{Q}$ we have that there is $m \in \mathbb{N}$ such that $s_{m + 1} \not \in C$. If $s_{m + 1}$ is not the supremum for $C$, then $y = {s_m + 1}$ and $x = s_m$ will give us $r$. But if $s_{m+1}$ is indeed the supremum take $x = s_m + \frac{r}{2}$ and $y = s_{m + 1} + \frac{r}{2}$.
+\end{proof}
+
+Also we will define that for each rational number $r$, the set $$\{s \in \mathbb{Q}: s < r\}$$. We will denote as $r_D$ and as we continue our construction of real number, we can prove that with operations and order, the set of all sets associated to rational numbers is isomorphic to $\mathbb{Q}$. 
+
+\begin{definition}
+	We will define the set $\mathbb{R}$ as:
+	\begin{align*}
+		\mathbb{R} &= \{C \in \mathcal{P}(\mathbb{Q}): C \textit{ is a Dedekind cut}\}
+	\end{align*}
+	And this is a set thanks to the axiom of separation(The condition $C$ is a Dedekind is an abbreviation for the three conditions in the formal language). The elements of $\mathbb{R}$ are called real numbers.
+\end{definition}
+
+Ok, so far we have some definitions. Here are some examples to describe some real numbers that are known to us:
+\begin{align*}
+	-3 &= \{r \in \mathbb{Q}: r < -3\}\\
+	\sqrt{2} &= \{r \in \mathbb{Q}: r^2 < 2 \vee r < 0\}
+\end{align*}
+Think a bit on the definitions. For $-3$ is what we said since $-3$ is rational. For $\sqrt{2}$ we think on the condition that $r^2 < 2$ since for example $1 < 2$ but $2^2 < 2$ and we can start to approximate to $1.4\dots$ and we include the condition that $r < 0$ for make $\sqrt{2}$ closed to left sine for example $(-3)^2 = 9 \not < 2$.\\
+
+\begin{theorem}
+	The set $\sqrt{2}$ defined as above is indeed a real number.
+\end{theorem}
+\begin{proof}
+	\begin{itemize}
+		\item First, note that $2 \not \in \sqrt{2}$ but $1 \in \sqrt{2}$ so it is a proper nonempty subset of $\mathbb{Q}$.
+		\item Suppose that $x \in \sqrt{2}$ and $y \in \mathbb{Q}$ is such that $y \le x$. If $x \le 0$ then $y \le 0$ is also in $\sqrt{2}$ by definition. But if $y > 0$, then we can derive:
+		\begin{align*}
+			y &< x & y &< x\\
+			y^2 &< xy & xy &< x^2
+		\end{align*} 
+		And then we conclude that $y^2 < x^2$ and since $x^2 < 2$ and $y^2 < 2$ so $y \in \sqrt{2}$.
+		\item This is a bit tedious but you can prove for yourself that the set has no maximum element.
+	\end{itemize}
+\end{proof}
+
+Now, we must define an order for the cuts. Note that if we take two real numbers $x, y$ such that $x < y$ then there are "more" elements to the left of $y$ than to the left of $x$. But also all the elements to the left of $x$ are to the left of $y$, so we can compare two real numbers based in if the numbers to the left of one are contained on the numbers to the left of the other.
+
+\begin{definition}[Order in $\mathbb{R}$]
+	Let $x, y \in \mathbb{R}$, we say that $x \le y$ if and only if $x \subseteq y$. We say that they are equal if $x = y$ as sets.
+\end{definition}
+
+This definition give us a total order and it is very intuitive.
+\begin{theorem}
+	The relation $\le$ give a total over $\mathbb{R}$
+\end{theorem}
+\begin{proof}
+	\begin{itemize}
+		\item It is reflexive since $x \subseteq x$
+		\item It is antisymmetric thanks to the axiom of extensionally
+		\item It is reflexive since for $x, y, z \in \mathbb{R}$, if $x \subseteq y$ and $y \subseteq z$, take $ a \in x$, then $a \in y$ but then $a \in z$, hence $x \subseteq z$
+		\item For linearity, take $x, y \in \mathbb{R}$ such that $x \neq y$ and suppose that $x \not \subseteq y$ so there is $a \in x$ such that $a \not \in y$, so $a \in \mathbb{Q} \setminus y$. Now take $r \in y$, it is easy to see that $r < a$ and since $x$ is a cut and it is closed to the left $r \in x$ so we can conclude $y \subseteq x$.
+	\end{itemize}
+\end{proof}
+
+The real importance of this order is what is called completeness. There are many ways to express what completeness, for example:
+\begin{quote}
+	The real line has no gaps. In other words, in every point of the real line, there is always a real number.
+\end{quote}
+But we are going to prove an equivalent proposition that is very useful in real analysis and it is the distinctive of the real numbers:
+
+\begin{theorem}
+	Every nonempty subset of $\mathbb{R}$ that is bounded above has a supremum
+\end{theorem}
+\begin{proof}
+	Take $A$ as a nonempty subset of $\mathbb{R}$ which is bounded above. We are going to construct the sup as $\cup A$, and we are allowed to do that thanks to ZF axioms. We are going first to prove that it is a cut:
+	\begin{itemize}
+		\item First, $A$ is not empty and it is a collection of nonempty sets(Real numbers) so $\cup A$ is not empty. Now, since $A$ is bounded, there is $s \in \mathbb{R}$ such that $s \ge r$ for all $r \in A$. Now, since $s$ is a real number, it is not $\mathbb{Q}$ so there is $a \in \mathbb{Q}$ such that $a \not \in s$, so it cannot be in some element of $A$ since it would imply that $a \in s$ which is contradictory, so $\cup A \neq \mathbb{Q}$
+		\item Now, suppose that $x, y \in \mathbb{Q}$ such that $x \le y$ and $y \in \cup A$. Then there is $r \in A$ such that $y \in r$ and since $r$ must be a real number, we can conclude that $x \in r$, hence $x \in \cup A$.
+		\item Suppose that $x \in \cup A$, this means that $x \in r$ for some real number $r \in A$. This means that there is $y \in r$ such that $x < y$ and so $y \in A$, so $\cup A$ has no maximum element.
+	\end{itemize}
+	And now that we have proved that this is indeed a real number, we must prove it is the lower upper bound:
+	\begin{itemize}
+		\item By definition, if $r \in A$, then $r \subseteq \cup A$ so $r \le \cup A$ for all $r \in A$, so $\cup A$ is an upper bound.
+		\item Suppose that $s$ is also an upper bound for $A$, so we must have that $r \subseteq s$ for all $r \in A$. If $x \in \cup A$ then $x \in r$ for some $r \in A$ so $r \in s$ and this implies that $\cup A \subseteq s$ which means that $\cup A$ must be the lower of the upper bounds
+	\end{itemize}
+\end{proof}
+
+And with that we have reached the essential characteristic for the real numbers. What is left is to define the sum and product of real numbers in a way they behave as we expect. First, we are going to define the sum of real numbers.
+\begin{quote}
+	Note that for rational numbers, if $a \le b$ and $x \le y$ then $a + x \le b + y$. This is a good intuition since if we take cuts, we can apply the same principle to their elements to define the sums of real numbers.
+\end{quote}
+\begin{definition}[Sum of real numbers]
+	Let $C, D$ be two real numbers. We define the sum of them as the set denoted by $C + D$ with:
+	\begin{align*}
+		C + D &= \{r + s \in \mathbb{Q}: r \in C \wedge s \in D\}
+	\end{align*}
+\end{definition}
+
+First, we need to prove that this indeed is a cut. Note that it is not empty since $C$ and $D$ are nonempty. It is not $\mathbb{Q}$ since for $C$ and $D$ there are elements $x$ and $y$ such that $x \not\in C$ and $y \not\in D$, so $x + y \not \in C + D$. Now, suppose that $x + y \in C + D$ with $x \in C$ and $y \in D$ and $z < x + y$. Then $z - y < x$ and therefore $z - y \in C$, and since $y \in D$ we have that $z - y + y = z \in C + D$. At last, if $x + y \in C + D$ note that since $x \in C$ and $y \in D$ there are $a \in C$ and $b \in D$ such that $x < a$ and $y < b$, and therefore $x + y < a + b \in C + D$.\\
+
+Now, we must prove that indeed this obey the structure of an abelian group.
+\begin{theorem}
+	The operation $+$ over $\mathbb{R}$ forms an abelian group.
+\end{theorem}
+\begin{proof}
+	For that, we need to prove a lot of things. First, note that this operation is commutative just by definition. Now, to prove that it is associative suppose that $A, B, C$ are cuts.
+	\begin{itemize}
+		\item[$\subseteq)$] Suppose that $r \in A + (B + C)$ so $r = x + m$ with $x \in A$ and $m \in B + C$, but this means that $m = y + z$ for $y \in B$ and $z \in C$ so $r = x + y + z$. Note that now, $x + y \in A + B$ and therefore $(x + y) + z = r \in (A + B) + C$
+		\item[$\supseteq)$] Suppose that $r \in (A + B) + C$ so $r = m + z$ for $m \in A + B$ and $z \in C$. This means that $m = x + y$ for $x \in A$ and $y \in B$ so that $r = x + y + z$. Now, note that $y + z \in B + C$ and so $x + (y + z) = r \in A + (B + C)$ 
+	\end{itemize}
+	So we have proved that this operation is associative. Now, we can prove that with this definition $0$ is the module of $+$ in $\mathbb{R}$.
+	\begin{itemize}
+		\item[$\subseteq)$] Suppose that $x + y \in C + 0$ so that $x \in C$ and $y \in 0$, which implies that $y < 0$. Now, this means that $x + y < x$ and since $C$ is a real number, $x + y \in C$.
+		\item[$\supseteq)$] Suppose that $x \in C$, so that there is $y \in C$ such that $x < y$ since $C$ has no maximum element. Therefore, $x - y < 0$ and so $x - y \in 0$, which means that $y + x - y = x \in C + 0$ 
+	\end{itemize}
+	And this shows that this operation has an identity element. Now, we just need to prove the existence of an inverse element. We will denote for a cut $X$ the set:
+	\begin{align*}
+		Y &= \{t \in \mathbb{Q}: (\forall r)(r \in X \rightarrow r < -t)\}
+	\end{align*}
+	This cut is defined to reflect elements in the real to be adjusted on the cut for the inverse element. Think on this a bit and maybe with a draw. Now, let's prove that indeed this is a cut:
+	\begin{itemize}
+		\item Note that since $X$ is a cut, then there is $s \in \mathbb{Q}$ such that $s \not \in X$ and so $r < s$ for all $r \in X$. So $-s$ is in $Y$. Also, take any element $r$ of $Y$ and note that $-r$ cannot be on $Y$.
+		\item Suppose that $y \in Y$ and $x \le y$, so $-y \le -x$. Now, $r < -y$ for all $r \in X$ but then $r < -x$ so $x \in Y$
+		\item Suppose that $y \in Y$, so for all $r \in X$ we have that $r < -y$. Note now that thanks to the existence of at least one element $y$ that is greater than all of the elements in $X$ we can predict the element $y + 1$ and then $- (y + 1) \in Y$, but we are going to denoted it as $-x$. It is easy to see that $-x < -y$ and if you construct the number $\frac{-x-y}{2}$ it holds that $-x < \frac{-x-y}{2} < -y$ and since $-x$ must be greater than all elements of $X$, so is $\frac{-x-y}{2}$ so $\frac{x+y}{2} \in Y$ and this is greater than $y$, so $Y$ has no maximum element. 
+	\end{itemize}
+
+	For last, we need to prove that indeed this is an inverse element:
+	\begin{itemize}
+		\item[$\subseteq)$] Suppose that $x + y \in X + Y$ so $x \in X$ and $y \in Y$. But then $x < -y$ and therefore $x + y < 0$ so that $x + y \in 0$
+		\item[$\supseteq)$] Suppose that $x \in 0$, so that $x < 0$. Then $-x > 0$ and so there are $a, b \in \mathbb{Q}$ such that $a \in X$ and $b \not\in X$ with $b \neq \sup X$ such that $-x = b - a$, so $x = a - b$ and since $b \not \in X$, $r < b$ for all $r \in X$ and then $-b \in Y$ so that $a - b = x \in X + Y$ 
+	\end{itemize}
+	And this set $Y$ will be denoted as $-X$ for all $X \in \mathbb{R}$
+\end{proof}
+
+And we can note that this prove that $+$ is defined as we expected. Even the monotony property holds in the real numbers with $+$:
+\begin{theorem}
+	Let $X, Y$ be real numbers. If $X \le Y$ then $$X + C \le Y + C$$ for all $C \in \mathbb{R}$
+\end{theorem}
+\begin{proof}
+	Suppose that $X \le Y$ so that $X \subseteq Y$. Now suppose that $r \in X + C$ so there must be $a \in X$ and $b \in C$ such that $r = a + b$. Now, this means that $a \in Y$ since $X \subseteq Y$ and therefore $r \in Y + C$, so $X + C \le Y + C$.
+\end{proof}
+
+So with this even we can derive a little proposition:
+\begin{corollary}
+	If $X > 0$ then $-X < 0$ and if $X < 0$ then $-X > 0$ for any $X \in \mathbb{R}$
+\end{corollary}
+\begin{proof}
+	For the first statement, add $-X$ to both sides as follows:
+	\begin{align*}
+		0 &< X\\
+		0 + (-X) &< X + (-X)\\
+		-X &< 0
+	\end{align*}
+	And the same goes for the other one.
+\end{proof}
+
+And with this, we must define the other important operation: the product. We will think first in the product of positive cuts:
+\begin{quote}
+	Take two positive cuts $X$ and $Y$. If we take $x < 0$ and $y < 0$, it can be possible that $xy > 0$ and $xy$ is out of the cuts. So, we just apply this trick to just positive rational numbers and we add all the negative ones.
+\end{quote}
+\begin{definition}[Product on $\mathbb{R}^+$]
+	Suppose that $X, Y \in \mathbb{R}^+$ then we define $XY$ or $X \cdot Y$:
+	\begin{align*}
+		X\cdot Y &= 0 \cup \{xy \in \mathbb{Q}: x \in X \wedge y \in Y \wedge x \ge 0 \wedge y \ge 0\}
+	\end{align*}
+\end{definition}
+
+We can prove that this set $XY$ is indeed a cut:
+\begin{itemize}
+	\item Indeed it is not empty since $0$ is not empty. It is not all $\mathbb{Q}$ since $X$ and $Y$ are cuts, so there are $x \not\in X$ and $y \not\in Y$ and since they are greater than all the elements in $X$ and in $Y$, then $x \cdot y \not \in XY$.
+	\item It is closed to left. Take $x, y$ such that $x \le y$ and $y \in X \cdot Y$. Then if $y \le 0$ it is easy to see that $x \in X \cdot Y$. Suppose that $x > 0$, so we must have that $y = a \cdot b$ with $a \in X$, $b \in Y$ and they both positive rationals. So, note that $\frac{x}{a} < \frac{y}{a}$ but $\frac{a}{y} = b$ and since $Y$ is closed to left, $\frac{x}{a} \in Y$ and therefore $a \cdot \frac{x}{a} = x \in X \cdot Y$.  
+	\item It has no maximum since for $a\cdot b$ in $X \cdot Y$ we must have that $a \in X$ and $b \in Y$, and hence there are $x \in X$ and $y \in Y$ such that $a < x$ and $b < y$ so that $ab < xy$ and we must conclude that $xy \in X \cdot Y$.
+\end{itemize} 
+
+But for define the product for any two cuts, we must define the absolute value:
+\begin{definition}[Absolute value in $\mathbb{R}$]
+	We define the function $||: \mathbb{R} \to \mathbb{R}$ such that for any $x \in \mathbb{R}$:
+	\begin{align*}
+		|x| &= \begin{cases}
+			x & x \ge 0\\
+			-x & x < 0
+		\end{cases}
+	\end{align*}
+	And we call this the \textbf{absolute value of $x$}
+\end{definition}
+
+Note that always the absolute value is always nonnegative, so it is convenient to define the product for any two cuts with the absolute value since it is well define for nonnegative cuts.
+
+\begin{definition}[Product in $\mathbb{R}$]
+	Let $X$ and $Y$ be two real numbers. We define $XY$ or $X \cdot Y$ as:
+	\begin{align*}
+		X \cdot Y && X \ge 0 \wedge Y \ge 0\\
+		-(|X| \cdot Y) && X < 0 \wedge Y \ge 0\\
+		-(X \cdot |Y|) && X \ge 0 \wedge Y < 0\\
+		(|X| \cdot |Y|) && X < 0 \wedge Y < 0\\
+	\end{align*}
+\end{definition}
+
+Again, this definition is valid since we are using in every case positive cuts for which we have given a valid definition. Now, we can prove that this is also an abelian group:
+
+\begin{theorem}
+	$\cdot$ forms an abelian group over $\mathbb{R} \setminus \{0\}$
+\end{theorem}
+\begin{proof}
+	Commutative is by definition and is obvious. If we prove that the set of positive cuts forms such abelian group, it follows that this apply to all the real numbers. Let $X, Y, Z$ be nonnegative cuts:
+	\begin{itemize}
+		\item[$\subseteq)$] Suppose that $a \in X \cdot (Y \cdot Z)$, then $a < 0$ or $a = x \cdot m$ for $x \in X$ and $m \in Y \cdot Z$ with $x, m$ being nonnegative. It implies that $m = y \cdot z$ with $y \in Y$ and $z \in Z$, so $a = x \cdot y \cdot z$. So, this means that $x \cdot y \in X \cdot Y$ and $(x \cdot y) \cdot z = a \in (X \cdot Y) \cdot Z$.
+		\item[$\supseteq)$] This side is analogous to the previous one.
+	\end{itemize}
+	And we have concluded that this operation is associative. Now, we want to prove that exists a neutral element. Intuitively this element is $1$, so we are going to prove that:
+	\begin{itemize}
+		\item[$\subseteq)$] Suppose that $a \in X \cdot 1$, so $a < 0$ or $a$ is nonnegative. Suppose the second option since the first one is obvious, so $a = x \cdot y$ with $x \in X$ and $y \in 1$. Since $y \in 1$, we must have that $y < 1$ and therefore $x \cdot y < x$ and since $X$ is closed to the left, $x \cdot y = a \in X$.
+		\item[$\supseteq)$] Suppose that $x \in X$, so $x < 0$ or $x$ is nonnegative. The first is obvious, so suppose the second and take that since in $X$ there is not maximum element, there must be $u \in X$ such that $x < u$, from which we conclude that $\frac{x}{u} < 1$ so $\frac{x}{u} \in 1$ and therefore $u \cdot \frac{x}{u} = x \in X \cdot 1$. 
+	\end{itemize}
+
+	And now we must prove that each element posses inverse element. We must define then the set:
+	\begin{align*}
+		Y &= \{t \in \mathbb{Q}: (\forall r)(r \in X \rightarrow r < t^{-1})\}
+	\end{align*}
+	So we can prove that this is indeed the inverse for $X$:
+	\begin{itemize}
+		\item[$\subseteq)$] Suppose that $a \in X \cdot Y$, so $a < 0$ and then it is obviously in $1$, but if not, then there are $x \in X$ and $y \in Y$ such that $a = x \cdot y$. Since $y \in Y$, then $x < y^{-1}$ and therefore $x\cdot y = a < 1$.
+		\item[$\supseteq)$] Suppose that $a \in 1$, so that $a < 0$ and then easily it is in $X \cdot Y$, else, there are $x \in C$ and $y \not\in C$ such that $\frac{x}{y} = a$ so $x = \frac{a}{y}$ and therefore $\frac{a}{y} \in X$, and also since $y \in Y$, we have that $\frac{a}{y} \cdot y = a \in X \cdot Y$.  
+	\end{itemize}
+\end{proof}
+
+And with that, for complete our needed structure for $\mathbb{R}$, we need to prove that it applies the distributive property.
+
+\begin{theorem}
+	For any real numbers, $x, y, z$, it holds that:
+	\begin{align*}
+		x ( y + z ) &= xy + xz
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	We are going to suppose that they are all positive cuts, since the case for non positive is derived from this.
+	\begin{itemize}
+		\item[$\subseteq)$] Suppose that $a \in X \cdot (Y + Z)$, so $a < 0$ or $a$ is nonnegative. Suppose the second, so $a = x \cdot m$ for $x \in X$ and $m \in Y + Z$, which implies that $m = y + z$ for $y \in Y$ and $z \in Z$. Now, $a = x\cdot(y + z) = xy + xz$, so by definition, $xy \in XY$ and $xz \in XZ$ so $xy + xz = a \in XY + XZ$.
+		\item[$\supseteq)$] Suppose that $a \in X \cdot Y + X \cdot Z$ so that $a = b + c$ with $b \in X \cdot Y$ and $c \in X \cdot Z$. If $a < 0$ then $a \in X \cdot (Y + Z)$ easy. If $a > 0$ then it must be that $b > 0$ and $c > 0$(If not, we could find a combination of $b, c$ that are positives and $ b + c = a$) then there are $x, w\in X$, $y \in Y$ and $z \in Z$  which are nonnegative and that $b = xy$ and $c = wz$, so $a = xy + wz$. If $x = w$ then it is easy to see that $a \in X \cdot (Y + Z)$. Else, without lose of generality, $x < w$, so $\frac{x}{w} < 1$, so $\frac{x}{w} \cdot y < y$ and then $\frac{x}{w} y \in Y$. So, we can put $x = w(\frac{x}{w} y + wz)$ and by definition it will be on $X \cdot (Y + Z)$. 
+	\end{itemize}
+\end{proof}
+
+With this, $\mathbb{R}$ has an structure desired and that is familiar to all of us. Now, Dedekind construction is the most easy to understand in most cases, but there are many other equivalent constructions. We are going to explore one alternative.
+
+
+\section{Cantor Real Numbers}
+This alternative construction starts on thinking on the limits and sequences one generally sees on mathematical analysis. So, what is first a sequence? A sequence is just a function $f: \mathbb{N} \to A$ being $A$ any set. We use to denote $f(n)$ as $x_n$ and the entire sequence as $(x_n)$. There are sequences that increase with no bound like the sequence $(n)$, since each $n$ is larger than the previous one, and sequences like $\left(\frac{1}{n}\right)$ start to get closer to $0$. We are just interested on sequences that get closer to a number(We say that the sequence converge) and we need to use the rational numbers for that.\\
+
+When one joins in an analysis course, one can see that there are sequences called cauchy sequences that turn to be always convergent. We must use them thinking that the pattern for a cauchy sequence is to make the terms closer and closer.
+
+\begin{definition}[Cauchy sequence]
+	Let $(x_n)$ be a sequence of rational numbers(A function $f: \mathbb{N} \to \mathbb{Q}$), we say that this is a cauchy sequence if and only if:
+	\begin{align*}
+		(\forall \epsilon \in \mathbb{Q}^+)(\exists N \in \mathbb{N})(\forall n, m  \in \mathbb{N})(n, m \ge M \rightarrow |x_n - x_m| < \epsilon)
+	\end{align*}
+\end{definition}
+
+Now, for each real number we can approximate with a sequence, there are lot of other sequences that can approximate to that real number. So, what we do is to define an equivalence relation:
+
+\begin{definition}
+	We will say that two cauchy sequences $(x_n)$ and $(y_n)$ are equivalent(Denoted as $(x_n) \sim (y_n)$) if and only if:
+	\begin{align*}
+		(\forall \epsilon \in \mathbb{Q}^+) (\exists N \in \mathbb{N}) (\forall n \in \mathbb{N})(n \ge N \rightarrow |x_n - y_n| < \epsilon)
+	\end{align*}
+\end{definition}
+
+What we are doing here is to associate sequences that tend to the same number, expressing that they become \textit{arbitrarily close} to each other.
+
+\begin{theorem}
+	The relation defined above is an equivalence relation
+\end{theorem}
+\begin{proof}
+	\begin{itemize}
+		\item Note that $|x_n - x_n| = |0| = 0$ so that $0 < \epsilon$ by definition if $\epsilon \in \mathbb{Q}$ so for any $\epsilon \in \mathbb{Q}^+$ take $n = 0$. So $(x_n) \sim (x_n)$
+		\item If $(x_n) \sim (y_n)$ then taking $\epsilon \in \mathbb{Q}^+$ there must be $N \in \mathbb{N}$ such that for all $n \ge N$, $|x_n - y_n| < \epsilon$, but $|x_n - y_n| = |y_n - x_n|$ so we have proved that $(y_n) \sim (x_n)$
+		\item If $(x_n) \sim (y_n)$ and $(y_n) \sim (z_n)$ then for any $\epsilon \in \mathbb{Q}^+$ there are $N_1, N_2$ such that for all $n \ge N_1$ we have that $|x_n - y_n| < \frac{\epsilon}{2}$ and for any $n \ge N_2$ we have that $|y_n - z_n| < \frac{\epsilon}{2}$. So take $N = \max\{N_1, N_2\}$ and therefore we have the two enounced inequalities for $n \ge N$. Now, note that $|x_n - z_n| = |x_n - y_n + y_n - z_n|$ is less than $|x_n - y_n| + |y_n - z_n$ which at the same time are less than $\frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$ so we have that $|x_n - z_n| < \epsilon$.
+	\end{itemize}
+\end{proof}
+
+Now, we define the real numbers to be each of the equivalence classes of this relation. Formally writing:
+\begin{definition}
+	We denote the set $Func(\mathbb{N}, \mathbb{Q}) / \sim$ as $\mathbb{R}$ and we define that each element in $\mathbb{R}$ will be called a real number. For all $r \in \mathbb{Q}$ we define it's correspondence real number as $[(r)]$ which turns to be a cauchy sequence.
+\end{definition}
+
+Now, how we can define an order for $\mathbb{R}$? Well, think that two sequences tend to different numbers and they start to get far away from each one if at some point, we can for a fixed distance put the two successions. In other words, for successions $(a_n)$ and $(b_n)$ we would say that $(a_n) < (b_n)$, we would have $d \in \mathbb{Q}^+$ and $N \in \mathbb{N}$ such that for all $n \ge N$, $b_n - a_n \ge d$. First, we must prove that this holds in real numbers no matter the sequence we choose to represent each number.
+
+\begin{theorem}
+	If $(a_n) \sim (x_n)$ and $(b_n) \sim (y_n)$ then $(a_n) < (b_n)$ implies that $(x_n) < (y_n)$.
+\end{theorem}
+\begin{proof}
+	With this hypothesis, we have that there is $d \in \mathbb{Q}^+$ and $N \in \mathbb{N}$ such that:
+	\begin{align*}
+		b_n - a_n &\ge d\\
+		a_n - b_n &\le -d\\
+		a_n &\le b_n - d\\
+		a_n + \frac{d}{4} &\le b_n - \frac{3d}{4}
+	\end{align*}
+	Also, we have $N_1, N_2 \in \mathbb{N}$ such that:
+	\begin{align*}
+		|a_n - x_n| < \frac{d}{4} & &n \ge N_1, & & |b_n - y_n| < \frac{d}{4} && n \ge N_2
+	\end{align*}
+	So we can derive from each case that:
+	\begin{align*}
+			|x_n - a_n| &< \frac{d}{4} & |b_n - y_n| &< \frac{d}{4}\\
+			x_n - a_n &< \frac{d}{4} & b_n - y_n &< \frac{d}{4}\\
+			x_n &< a_n + \frac{d}{4} & b_n - \frac{d}{4} &< y_n
+	\end{align*}
+	So if you take $M = \max\{N_1, N_2, N\}$ and $D = \frac{D}{2}$ then we could take:
+	\begin{align*}
+		y_n - D &= y_n - \frac{d}{2}\\
+		&> b_n - \frac{d}{4} - \frac{d}{2}\\
+		&= b_n - \frac{3d}{4}\\
+		&\ge a_n + \frac{d}{4}\\
+		&> x_n
+	\end{align*}
+	So we have that $x_n \le y_n - D$ which means that $y_n - x_n \ge D$ and therefore $(x_n) < (y_n)$.
+\end{proof}
+
+Now, with this we can define this order in general to all real numbers:
+\begin{definition}[Order in $\mathbb{R}$]
+	Let $[(x_n)]$ and $[(y_n)]$ be two real numbers, we say that $[(x_n)] < [(y_n)]$ if and only if $(x_n) < (y_n)$. We assert that $[(x_n)] \le [(y_n)]$ if and only if $[(x_n)] < [(y_n)]$ or $[(x_n)] = [(y_n)]$.
+\end{definition}
+
+This indeed produce an total order.
+
+\begin{theorem}
+	The relation $\le$ defined above is a total order over $\mathbb{R}$
+\end{theorem}
+\begin{proof}
+	\begin{itemize}
+		\item Reflexive property is obvious
+		\item If $[(x_n)] \le [(y_n)]$ and $[(y_n)] \le [(x_n)]$ we cannot have that $(x_n) < (y_n)$ and $(y_n) < (x_n)$. If this could happen, then there are $d_1, d_2 \in \mathbb{Q}^+$ and $N_1, N_2 \in \mathbb{N}$ such that:
+		\begin{align*}
+			y_n - x_n \ge d_1 && n \ge N_1, && x_n - y_n \ge d_2 && n \ge N_2
+		\end{align*}
+		And this means that taking $N = \max{N_1, N_2}$ and $n \ge N$:
+		\begin{align*}
+			y_n - x_n + x_n - y_n &\ge d_1 + d_2\\
+			0 &\ge d_1 + d_2
+		\end{align*}
+		Which is absurd since $d_1 + d_2$ must be positive since $d_1, d_2$ are positive. If $(x_n) < (y_n)$ and $(x_n) \sim (y_n)$ then there must be $d \in \mathbb{Q}^+$ and $N_1 \in \mathbb{N}$ such that:
+		\begin{align*}
+			y_n - x_n \ge d && n \ge N_1
+		\end{align*}
+		But also that for any $\epsilon \in \mathbb{Q}^+$ there is $N \in \mathbb{N}$ such that:
+		\begin{align*}
+			|x_n - y_n| < \epsilon && n \ge N
+		\end{align*}
+		So, if we take $\epsilon = d$ and $N = N_1$ then:
+		\begin{align*}
+			|x_n - y_n| &= |y_n - x_n|\\
+			&= y_n - x_n\\
+			&< d
+		\end{align*}
+		But this is a contradiction, and so, the only option is that $[(x_n)] = [(y_n)]$.
+
+		\item Suppose that $[(x_n)] < [(y_n)]$ and $[(y_n)] < [(z_n)]$, then we must have that there are $d_1, d_2 \in \mathbb{Q}^+$ and $N_1, N_2 \in \mathbb{N}$ such that:
+		\begin{align*}
+			y_n - x_n \ge d_1 && n \ge N_1 && z_n - y_n \ge d_2 && n \ge N_2
+		\end{align*} 
+		So take $N = \max\{N_1, N_2\}$ and with that we get to sum up the two inequalities for $n \ge N$:
+		\begin{align*}
+			y_n - x_n + z_n - y_n &\ge d_1 + d_2\\
+			z_n - x_n &\ge d_1 + d_2
+		\end{align*}
+		So taking $d = d_1 + d_2$, by definition, $[(x_n)] < [(z_n)]$.
+	\end{itemize}
+\end{proof}
+
+So we ended up with an usual order for $\mathbb{R}$. Even though it is easy to see the completeness property for this set, it is very hard to prove it, so I will omit the proof for that. We just need now to focus on the operations, which are very straightforward. For two sequences $(x_n)$ and $(y_n)$, we define the sum and product as:
+\begin{align*}
+	(x_n) + (y_n) &= (x_n + y_n) & (x_n) \cdot (y_n) &= (x_n \cdot y_n)
+\end{align*}
+So, we need to ask if it is indeed a Cauchy sequence that let us apply to our construction.
+\begin{theorem}
+	Let $(x_n)$ and $(y_n)$ be sequences. If they are Cauchy sequences, then $(x_n) + (y_n)$ and $(x_n) \cdot (y_n) = (x_n \cdot y_n)$
+\end{theorem}
+\begin{proof}
+	Since $(x_n)$ and $(y_n)$ are Cauchy sequences for any $\epsilon \in \mathbb{Q}^+$ there are $N_1, N_2$ such that:
+	\begin{align*}
+		|x_n - x_m| &< \frac{\epsilon}{2} &n, m \ge N_1\\
+		|y_n - y_m| &< \frac{\epsilon}{2} &n, m \ge N_2
+	\end{align*}
+	If $N = \max\{N_1, N_2\}$ and taking $n, m \ge N_1$ and if you add them up, we would have $|x_n - x_m + y_n - y_m| = |(x_n + y_n) - (x_m + y_m)|$, and by the triangle inequality:
+	\begin{align*}
+		|(x_n + y_n) - (x_m + y_m)| &\le |x_n - x_m| + |y_n - y_m|\\
+		&< \frac{\epsilon}{2} + \frac{\epsilon}{2}\\
+		&= \epsilon
+	\end{align*}
+	So $(x_n + y_n)$ is a Cauchy sequence. For the product, we will use the fact that Cauchy sequences are bounded(This can be proved by your own) so we take the maximum of the bounds for $(x_n)$ and $(y_n)$ as $\frac{M}{2}$. Also, for any $\epsilon \in \mathbb{Q}^+$ there are $N_1, N_2$ such that:
+	\begin{align*}
+		|x_n - x_m| &< \frac{\epsilon}{M} &n, m \ge N_1\\
+		|y_n - y_m| &< \frac{\epsilon}{M} &n, m \ge N_2
+	\end{align*}
+	And so, we would have:
+	\begin{align*}
+		|x_ny_n - x_my_m| &= |x_ny_n - x_my_m + x_ny_m - x_ny_m|\\
+		&= |x_n(y_n-y_m) + y_m(x_n-x_m)|\\
+		&\le |x_n(y_n - y_m)| + |y_m(x_n - x_m)|\\
+		&= |x_n||y_n-y_m| + |y_m||x_n-x_m|\\
+		&< \frac{M}{2} \cdot \frac{\epsilon}{M} + \frac{M}{2} \cdot \frac{\epsilon}{M}\\
+		&= \epsilon
+	\end{align*}
+	And therefore, we have that $(x_ny_n)$ is also a Cauchy sequence.
+\end{proof}
+
+Now, it is routine to prove that if $(a_n) \sim (x_n)$ and $(b_n) \sim (y_n)$ then $(a_n + b_n) \sim (x_n + y_n)$ and $(a_nb_n) \sim (x_ny_n)$(They are almost equal to the previous one). 
+
+\begin{definition}[Operations on $\mathbb{R}$]
+	Let $[(x_n)]$ and $[(y_n)]$ be real numbers, then we define:
+	\begin{align*}
+		[(x_n)] + [(y_n)] &= [(x_n + y_n)]\\
+		[(x_n)][(y_n)] &= [(x_ny_n)]
+	\end{align*}
+\end{definition}
+
+The next theorem is just routine and is almost easy in each part except for proving that $[(x_n)]$ has a multiplicative inverse.
+
+\begin{theorem}
+	The set $\mathbb{R}$ with $+$ and $\cdot$ forms a complete ordered field
+\end{theorem}
+\begin{proof}
+	First, let's prove that this is an abelian group under $+$:
+	\begin{itemize}
+		\item For $[(x_n)], [(y_n)], [(z_n)]$ we have:
+		\begin{align*}
+			[(x_n)] + ([(y_n)] + [(z_n)]) &= [(x_n)] + [(y_n + z_n)]\\
+			&= [(x_n + y_n + z_n)]\\
+			&= [(x_n + y_n)] + [(z_n)]\\
+			&= ([(x_n)] + [(y_n)]) + [(z_n)]
+		\end{align*}
+		\item For $[(x_n)]$, we have the identity element $[(x_n)] + [(0)] = [(x_n + 0)] = [(x_n)]$.
+		\item For $[(x_n)]$, we have the inverse element $[(-(x_n))]$ which is also a cauchy element(It is easy to prove) since $[(x_n)] + [(-(x_n))] = [(x_n - x_n)] = [(0)]$
+		\item For $[(x_n)], [(y_n)]$ we have $[(x_n)] + [(y_n)] = [(x_n + y_n)] = [(y_n + x_n)] = [(y_n)] + [(x_n)]$.
+	\end{itemize}
+
+	And now for the abelian group under $\cdot$ over $\mathbb{R} \setminus \{0\}$:
+	\begin{itemize}
+		\item For $[(x_n)], [(y_n)], [(z_n)]$ we have:
+		\begin{align*}
+			[(x_n)] \cdot ([(y_n)] \cdot [(z_n)]) &= [(x_n)] \cdot [(y_n \cdot z_n)]\\
+			&= [(x_n \cdot y_n \cdot z_n)]\\
+			&= [(x_n \cdot y_n)] \cdot [(z_n)]\\
+			&= ([(x_n)] \cdot [(y_n)]) \cdot [(z_n)]
+		\end{align*}
+		\item For $[(x_n)]$ we have the identity element $[(1)]$ because $[(x_n)] \cdot [(1)] = [(x_n \cdot 1)] = [(x_n)]$
+		\item For $[(x_n)]$ we have the inverse element $\left[\left(\frac{1}{x_n}\right)\right]$(This can be proven to be a cauchy sequence, though it is a bit tedious) and we have $[(x_n)] \cdot \left[\left(\frac{1}{x_n}\right)\right] = \left[\left(x_n \cdot \frac{1}{x_n}\right)\right] = [(1)]$
+		\item For $[(x_n)]$ and $[(y_n)]$ we have $[(x_n)] \cdot [(y_n)] = [(x_n \cdot y_n)] = [(y_n \cdot x_n)] = [(y_n)] \cdot [(x_n)]$.
+	\end{itemize}
+
+	And at last, we must prove the distributive property. For $[(x_n)], [(y_n)], [(z_n)]$ we have:
+	\begin{align*}
+		[(x_n)] \cdot ([(y_n)] + [(z_n)]) &= [(x_n)] \cdot [(y_n + z_n)]\\
+		&= [(x_n \cdot (y_n + z_n))]\\
+		&= [(x_n \cdot y_n + x_n \cdot z_n)]\\
+		&= [(x_n \cdot y_n)] + [(x_n \cdot z_n)]\\
+		&= [(x_n)] \cdot [(y_n)] + [(x_n)] \cdot [(z_n)] 
+	\end{align*}
+\end{proof}
+
+\section{Last comments}
+With this, we have generalized 99\% of the math we use generally. Our last point is to see how one can prove that the construction given by Dedekind and Cantor get us to the same set in essence. In our next topics, we are going to cover mainly set theory topics, even when some of them will be useful in the other subjects. In summary, we will see:
+\begin{itemize}
+	\item Infinite and finites sets
+	\item Comparing sets
+	\item The axiom of choice
+	\item Zorn's lemma
+	\item Cardinals
+	\item Ordered sets
+	\item Ordinal numbers
+	\item Further in the axiom of choice
+\end{itemize} 
+\end{document}

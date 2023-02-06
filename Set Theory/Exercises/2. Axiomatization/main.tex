@@ -1,0 +1,33 @@
+%========Top Matter=========== (fold)
+\documentclass[final,expand]{problemset}
+% For plot: pfdplots and settings
+\usepackage{pgfplots}
+\pgfplotsset{width=7cm,
+  compat=newest,
+  label style={font=\small},
+  legend style={font=\small}
+}
+%========top_matter=========== (end)
+
+\begin{document}
+\heading[Caballero]{Sebastián Caballero}{Set Theory}{Problem set}{Axiomatization}
+
+\problem[]
+Let $x$ be a set. Show that $\{\{y\}: y \in x\}$ is a set
+
+
+\solution{
+  Formally, this must be written as
+  \begin{align*}
+    \{z \in \mathcal{P}(x): \exists y (y \in x \wedge z = \{y\})\}
+  \end{align*}
+  Note that this set is also a set because:
+  \begin{itemize}
+    \item $\{y\}$ is a set
+    \item $\exists y(y \in x \wedge z = \{y\})$ is a formula in the formal language
+    \item $\mathcal{P}(x)$ is a set
+    \item The axiom of separation
+  \end{itemize}
+}
+
+\end{document}

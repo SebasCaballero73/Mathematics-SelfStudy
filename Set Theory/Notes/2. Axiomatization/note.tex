@@ -1,0 +1,240 @@
+\documentclass{tufte-handout}
+
+\title{Course: Set Theory(Axiomatization)}
+\author{Sebastián Caballero}
+\date{December 20, 2022}
+
+\usepackage{color-tufte}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+A simple notes template. Inspired by Tufte-\LaTeX class and beautiful notes by \begin{verbatim*}
+	https://github.com/abrandenberger/course-notes
+\end{verbatim*}
+\end{abstract}
+\section{The formal language for set theory and some remarks}
+For set theory, we will introduce some basic language from which all will be derived. This language is composed by:
+
+\begin{enumerate}
+	\item The logic symbols
+	\item The primitive relational concept of $=$
+	\item The primitive relational concept $\in$ of two arguments written as $x \in y$ and read as \textit{$x$ is in $y$} or \textit{$x$ is an element of $y$}
+\end{enumerate}
+
+And the use of important terminology for mathematicians.
+\begin{itemize}
+	\item \textbf{Axiom:} It is a statement that we assume as true in a theory with no proof
+	\item \textbf{Theorem:} It is a statement that is logical valid and derivable from the axioms of a theory. We use a formal proof to determine that a theorem is true.
+	\item \textbf{Definition:} A definition is a description for objects in the theory that has special properties. We use to describe those objects with names and special symbols.
+\end{itemize}
+
+With this, the main goal of the set theory is with the less amount of theorem, create a consistent theory that derives universal theorems applicable in all mathematics and with the definition, raise all the other branches. 
+
+\section{Starting the axiomatization}
+Set theory as the foundation for all mathematics has only been studied since the last century. Before it happens, mathematicians though just in a naive way about sets and their relations, and apply intuitive results in their work. But in the $19th$ century, mathematician George Cantor came with countraintutive ideas like that the infinity of $\mathbb{N}$ is smaller than the infinity of $\mathbb{R}$. \\
+
+The community began discussions and therefore they knew that if we want mathematics to be a solid theory, we will need a way to formalize it. Based on the works made by Euclid, the solution was that from logic and a list of axioms, all mathematics will be derived. Even though we know this is impossible for math to be concrete, with the certainty of no contradictions and predictable thanks to the work of Gödel, we develop a large system in which all mathematics is based on.\\
+
+So, why sets? Because we can extract, explain and abstract concepts like functions, operations, numbers, and more in terms of sets and relations. But our theory must be free of paradoxes and contradictions(At least we would try it), so there are lots of axiomatic systems for set theory as Morse-Kelly, NBG and ZF, which is the one we are going to explain through this document.\\
+
+Zermelo-Fraenkel axioms are in terms of just sets in the formal language we have just described. We are going to explore these axioms and explain what is the reason for each one.
+
+\begin{axiom}[Axiom of extensionality]
+	We say that two sets are equal if they have the same elements. Formally:
+	\begin{align*}
+		\forall x \forall y(x = y \leftrightarrow \forall z(z \in x \leftrightarrow z \in y))
+	\end{align*}
+\end{axiom}
+
+Ok, this one is straightforward. We are stating that sets are determined by their elements, so if we want to prove that two sets are the same, we need to prove that they contains the same elements. The next axiom, is one of the few that states the existence of sets.
+
+\begin{axiom}[Axiom of empty set]
+	There exists an empty set. Formally:
+	\begin{align*}
+		\exists x \forall y \,\, y \not\in x
+	\end{align*}
+\end{axiom}
+
+This set is what we call the empty set. It is so important in mathematics because we define much of the theory in terms of sets containing the empty set. But the axiom says that there exists an empty set, is it possible that there is another empty set?
+
+\begin{theorem}
+	The empty set is unique
+\end{theorem}
+\begin{proof}
+	This is just a straightforward use of the axiom of extensionality. Since two empty sets $x, y$ would have that $z \in x \leftrightarrow z \in y$, for all $z$(Think that $F \leftrightarrow F \equiv T$) so they must be the same.
+\end{proof}
+
+So, with that we denote as $\emptyset$ the empty set. And with that, it is tempting to create new sets with the empty set, so how can we do it? The next axiom let us create new sets.
+
+\begin{axiom}[Axiom of pairs]
+	For any two sets $x, y$ there is a set containing $x$ and $y$ as its elements. Formally:
+	\begin{align*}
+		\forall x \forall y \exists z \forall w(w \in z \leftrightarrow (w = x \vee w = y))
+	\end{align*}
+\end{axiom}
+
+We will denote the set created with this axiom as $\{x, y\}$. Note that one important result is that this set is also the set $\{y, x\}$ thanks to the axiom of extensionality. This is what make sets lose order and sometimes the set we have created is called an unordered pair. One can think that it is necessary another axiom for create sets with only one element, but this is a direct consequence of the axiom of pairs.
+
+\begin{theorem}
+	For any set $x$, there is a set $\{x\}$ called singleton $x$
+\end{theorem}
+\begin{proof}
+	For a set $x$, we use the axiom of pairs to create the set $\{x, x\}$ and thanks to the axiom of extensionality it is the same as $\{x\}$.
+\end{proof}
+
+We can create now new objects from what we have. Specially, order pairs. We want to create objects represented as $(a, b)$ such that it is important that in general $(a, b) \neq (b, a)$ and they are unique. We will define it as $\{\{a\}, \{a, b\}\}$ so we can distinguish the first and the second component looking if it is in two sets or just one.
+
+\begin{definition}[Order pair]
+	Given sets $x$ and $y$, we define $(x, y)$ as the set $\{\{x\}, \{x, y\}\}$ and we call it an order pair.
+\end{definition}
+
+Note that this set is unique determined thanks to the axiom of extensionality, so we are going to prove the most important property for order pairs.
+
+\begin{theorem}
+	For any sets $x, y, a, b$ if $(x, y) = (a, b)$ then $x = a$ and $y = b$.
+\end{theorem}
+\begin{proof}
+	If this happens, it implies that the sets $\{\{x\}, \{x, y\}\}$ and $\{\{a\}, \{a, b\}\}$ are the same. So the elements in both set must be the same. Take for example $\{x\}$, there are two possibilities:
+	\begin{itemize}
+		\item If $\{x\} = \{a\}$ then $x = a$. So, there are two options with $x$ and $y$. If $x = y$ then $\{x, y\} = \{x\}$ and therefore $(x, y) = \{\{x\}, \{x\}\} = \{\{x\}\}$ and since it must be equal in the other side, then $\{a, b\} = \{x\}$ so we conclude that $x = a = b = y$ and therefore $x = a$ and $y = b$. If $x \neq y$ then $\{x, y\} \neq \{a\}$ since it would implie that $x = y$, so $\{x, y\} = \{a, b\}$ and since $x = a$ and $x \neq y$ then $y = b$.
+		\item If $\{x\} = \{a, b\}$ then the elements in the left side must be equal to elements in the right side, and it implies that $x = a = b$, so we have that $(a, b) = \{\{a\}, \{a\}\} = \{\{a\}\}$ and it must be equal to $\{\{x\}, \{y\}\}$ so we must have that $x = y$ and $x = a$ so $x = a$ and $y = b$.
+	\end{itemize}
+\end{proof}
+
+And with that, the next most important definition is the cartesian product. But for that, we would like to have the notation $\{x: P(x)\}$, so we need some axioms in order to create this. First, we need subsets in the sets.
+
+\begin{definition}[Subset]
+	For any set $x, y$ we say that $x$ is a subset of $y$ if any element of $x$ is an element of $y$. Formally:
+	\begin{align*}
+		\forall x \forall y(x \subseteq y \leftrightarrow \forall z(z \in x \rightarrow z \in y))
+	\end{align*}
+\end{definition}
+
+Ok, now we can state new axioms with this.
+\begin{axiom}[Axiom of separation]
+	For any set, there is a subset whose elements holds a property. Formally:
+	\begin{align*}
+		\forall x \exists y \forall z(z \in y \leftrightarrow (z \in x \wedge P(z)))
+	\end{align*}
+	whereas $P(z)$ is a formula in the formal language, with at least one free variable $z$.
+\end{axiom}
+
+The set we can create with this axiom will be denoted as $\{z \in x: P(z)\}$ and we call this notation \textit{a set by intention}. But before we can continue in order to define the cartesian product, we need the power set.
+
+\begin{axiom}[Axiom of the power set]
+	For all set, there is a set whose members are subsets of the original set. Formally:
+	\begin{align*}
+		\forall x \exists y \forall z(z \in y \leftrightarrow z \subseteq x)
+	\end{align*}
+\end{axiom}
+
+The set we generate with this axiom is called the power set of $x$ and is written as $\mathcal{P}(x)$. So, for the cartesian product, we want order pairs, one tempting definition is
+\begin{align*}
+	\{(a, b): a \in A, b \in B\}
+\end{align*}
+but this is not allowed by the axiom of separation. So, we need a set that we can express in terms of the formal language. We could do it as:
+\begin{align*}
+	\{z: \exists a \exists b(a \in A \wedge b \in B \wedge z = (a, b))\}
+\end{align*}
+But we need a set where lives $z$. Note that if $z = (a, b)$ then $z = \{\{a\}, \{a, b\}\}$. We would need that $\{a, b\}$ is a set with elements in $A$ and $B$, so for that we need another axiom.
+
+\begin{axiom}[Axiom of union]
+	For a set $x$, there is a set whose element are the elements of the sets in $x$.
+	\begin{align*}
+		\forall x \exists y \forall z(z \in y \leftrightarrow \exists w(z \in w \wedge w \in x))
+	\end{align*}
+\end{axiom}
+
+This set is called the union of $x$ and is noted as $\cup x$. Thanks to the axiom of pairs, for any two sets $A, B$ we can form the set $\{A, B\}$, so the union of those two sets is $\cup \{A, B\}$, which we are going to denote as $A \cup B$. So, if $a \in A$ and $b \in B$, then  $a, b \in A \cup B$ so $\{a, b\} \subseteq A \cup B$. And since we want to include all the set $\{\{a\}, \{a, b\}\}$ it is a subset of the power set of $A \cup B$, so we define the cartesian product as follows.
+
+\begin{definition}[Cartesian product]
+	For any two sets $A, B$ we define the cartesian product of them denoted as $A \times B$ as:
+	\begin{align*}
+		\{z \in \mathcal{P}(\mathcal{P}(A \cup B)): \exists a \exists b(a \in A \wedge b \in B \wedge z = (a, b))\}
+	\end{align*}
+\end{definition}
+
+Before we dive more into this, we would like to define operations between sets as well. For example, we have defined the set $A \cup B$. We also can define the set $A \cap B$, as we think as the set:
+\begin{align*}
+	\{x: x \in A \wedge x \in B\}
+\end{align*}
+But again, this is not allowed by the axiom of separation. There are two equivalent ways to define this set:
+\begin{align*}
+	\{x \in A: x \in B\} && \{x \in A \cup B: x \in A \wedge x \in B\}
+\end{align*}
+
+And we can define the relative complement or the difference of sets as:
+\begin{align*}
+	X \setminus Y &:= \{x \in X: x \not\in Y\}
+\end{align*}
+And they are all valid since we are using the formal language and we are defining a set from which we take the elements. 
+
+\begin{theorem}
+	If we define the intersection of a nonempty set as
+	\begin{align*}
+		\cap x &:= \{z \in \cup x: \forall w(w \in x \rightarrow z \in w)\}
+	\end{align*}
+	is a set
+\end{theorem}
+\begin{proof}
+	This is true because of axiom of separation, and axiom of union.
+\end{proof}
+
+
+Ok! So far, we have just generalized what is needed for set theory to create basic structures like functions and relations. But before we move on, we need three more axioms.
+
+\begin{axiom}[Axiom of infinity]
+	There is an inductive set. Formally:
+	\begin{align*}
+		\exists y(\emptyset \in y \wedge \forall x(x \in y \rightarrow x \cup \{x\} \in y))
+	\end{align*}
+\end{axiom}
+
+This axiom is the another one that express the existence of a set. If you think closely in this axiom, you are creating an infinite set, since you are starting with $\emptyset$, so $\{\emptyset\}$ is also in the set, and then $\{\emptyset, \{\emptyset\}\}$ and so on. This will be our way to construct what we call numbers(Another reason why set theory is the foundation for all math).
+
+\begin{axiom}[Axiom of replacement]
+	We can form new sets replacing elements in a existence set. Formally:
+	\begin{align*}
+		\forall x \exists y \forall y'(y' \in y \rightarrow \exists x'(x' \in x \wedge P(x', y')))
+	\end{align*}
+	where $P(s, t)$ is a formula such that:
+	\begin{align*}
+		\forall s \exists t(P(s, t) \wedge \forall t'(P(s, t') \rightarrow t = t'))
+	\end{align*}
+\end{axiom}
+
+This is the only axiom that was not included originally in Zermelo-Fraenkel axioms. But it is necessary to form sets like $\{\mathbb{N}, \mathcal{P}(\mathbb{N}), \mathcal{P}(\mathcal{P}(\mathbb{N})), \dots\}$, so it was added. We will use it in deep when we construct natural numbers and it will be clear its utility. The last axiom is:
+\begin{axiom}[Axiom of foundation]
+	For all nonempty set, there is a minimal $\in$ element. Formally:
+	\begin{align*}
+		\forall x(x \neq \emptyset \rightarrow \exists y(y \in x \wedge x \cap y = \emptyset))
+	\end{align*}
+\end{axiom}
+
+This axiom is more like a restriction in some paradoxes. With that, we can derive interesting results and we avoid strange things like sets containing themselves.
+\begin{theorem}
+	For any set $x$, $x \not \in x$
+\end{theorem}
+\begin{proof}
+	Suppose that indeed, there is a set $x$, such that $x \in x$. Now, define $y = \{x\}$ and note that since $y$ is not empty it must have one element such that it is disjoint to $y$. But there is only one element, so you must have that $y \cup x = \emptyset$, but also $x \in x \cup y$ so we have a contradiction. Therefore,$x \not \in x$. 
+\end{proof}
+
+And a last result that will be useful in the next chapters when we construct numbers:
+\begin{theorem}
+	There are not two sets $x, y$ such that $x \in y$ and $y \in x$
+\end{theorem}
+\begin{proof}
+	Suppose that you have two sets $x, y$ such that $x \in y$. We want to prove that $y \not \in x$. Suppose that $y \in x$, so we can create by the axiom of pairs $z = \{x, y\}$ and by the axiom of foundation one of the elements of $z$ must be disjoint with it. Suppose it is $x$, so $z \cap x = \emptyset$ but $y \in z$ and $y \in x$ so $z \cap x \neq \emptyset$. In a similar way, we get a contradiction if we suppose that $y$ is such that element so we are contradicting the axiom of foundation and therefore $y \not\in x$.
+\end{proof}
+
+With all these results in mind, we have just announced all axioms in ZF set theory. Our next goals will be:
+\begin{itemize}
+	\item Define relations, orders, equivalences and functions with what we have
+	\item Construct the natural numbers
+	\item Construct the other numerical systems
+	\item Explore the axiom of choice
+\end{itemize}
+\end{document}

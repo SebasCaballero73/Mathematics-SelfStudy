@@ -1,0 +1,149 @@
+%========Top Matter=========== (fold)
+\documentclass[final,expand]{problemset}
+% For plot: pfdplots and settings
+\usepackage{pgfplots}
+\pgfplotsset{width=7cm,
+  compat=newest,
+  label style={font=\small},
+  legend style={font=\small}
+}
+%========top_matter=========== (end)
+
+\begin{document}
+\heading[Caballero]{Sebastián Caballero}{Set Theory}{Problem set}{Axiomatization}
+
+\problem
+Determine the fibers of the projections $p_j$
+
+\solution{
+  Let $A = \{X_1, \dots X_n\}$ be an indexed collection of sets over $n$, the projection $p_j$ is a function
+  from $\prod\limits_{i = 1}^n X_i$ to $X_j$ and assigns to a tuple $(a_1, a_2, \dots, a_n)$ the element $a_j$. Now, the fibers for an element $x \in X_j$ is the set of all tuples which $j-$th element is $x$. That means that:
+  \begin{align*}
+    f^{-1}(x) & = \{(a_1, a_2, \dots, a_n): a_j = x\}
+  \end{align*}
+  Or in a simple way, the product $X_1 \times X_2 \times \dots \times\{x\} \times \dots X_n$.
+}
+
+\problem Prove that, for each nonempty set $X$ the function
+\begin{align*}
+  \begin{matrix}
+    f: & \mathcal{P}(X) & \to     & \{0, 1\}^X \\
+       & A              & \mapsto & \chi_A
+  \end{matrix}
+\end{align*}
+is a bijection.
+
+\solution{
+  We need to prove two things, that $f$ is injective and surjective.
+  \begin{itemize}
+    \item \textbf{Injective:} Suppose $A, B \in \mathcal{P}(X)$ are sets, such that $f(A) = f(B)$. That means that $\chi_A = \chi_B$. So if $x \in A$, $\chi_A(x) = 1$, but it implies that $\chi_B(x) = 1$ so $x \in B$. It proves that $A\subseteq B$ and in a similar way you can prove that $B\subseteq A$, therefore $A=B$.
+    \item \textbf{Surjective:} Let $g: X \to \{0, 1\}$ be a function. Define the set $A$ as:
+          \begin{align*}
+            A & := \{x \in X: g(x) = 1\}
+          \end{align*}
+          By definition, $A \subseteq X$ so $A \in \mathcal{P}(X)$. Now, if you do $f(A)$ which is $\chi_A$ by definition it is the same function $g$.
+  \end{itemize}
+}
+
+\problem
+Let $f: X \to Y$ be a function and $i: A \to X$ the inclusion function of a subset $A$ in $X$. Show that:
+\begin{enumerate}
+  \item $f|_A = f\circ i$
+  \item $(f|_A)^{-1}(B) = A \cap f^{-1}(B)$, $B \subseteq Y$
+\end{enumerate}
+
+\solution{
+  Let $f: X \to Y$ be a function and $i: A \to X$ the inclusion function of a subset $A$ in $X$.
+  \begin{enumerate}
+    \item First, remember that $f|_A$ is defined from $A$ to $Y$, and by definition of composition, the function $f \circ i$ is defined also from $A$ to $Y$. Now, if you take $x \in A$, then $(f \circ i)(x) = f(i(x))$, but we know that $i(x) = x$ so it is $f(x)$, which is $f|_A(x)$ since $x \in A$. Therefore, both functions are the same.
+    \item By definition, $(f|_A)^{-1}(B)$ is the set
+          \begin{align*}
+            \{x \in A: f(x) \in B\}
+          \end{align*}
+          But if $f(x) \in B$, then $x \in f^{-1}(B)$, so $x \in A \cap f^{-1}(B)$. If $x \in A \cap f^{-1}(B)$ then $x \in A$ and $x \in f^{-1}(B)$, which means that $f(x) \in B$. So, by definition, $x \in (f|_A)^{-1}(B)$, so they are the same.
+  \end{enumerate}
+}
+
+\problem
+Let $f: X \to Y$ be a function. Show that the following are equivalent:
+\begin{enumerate}
+  \item $f$ is injective
+  \item $f^{-1}(f(A)) = A$, $A \subseteq X$
+  \item $f(A \cap B) = f(A) \cap f(B)$ for all $A, B \subseteq X$
+\end{enumerate}
+
+\solution{
+  First, suppose that $f$ is injective, so for any $x, y \in X$, $f(x) = f(y)$ implies that $x = y$. Take $x \in A$, then $f(x) \in f(A)$ and by definition, $x \in f^{-1}(f(A))$. If $x \in f^{-1}(f(A))$ then $f(x) \in f(A)$. It implies then that $x \in A$, thanks to the properties of $f$, because there is not other element in $X$ such that its image is $f(x)$. Now, suppose that $f$ is not injective, then $f(x) = f(y)$ but $x \neq y$ for some $x, y \in X$. So, $f(x) \in f(\{x\})$ and $x \in f^{-1}(f(\{x\}))$ but also $y \in f^{-1}(f(\{x\}))$ but it is evident that $y \not\in \{x\}$, so $f^{-1}(f(A)) \neq A$ for at least one $A \subseteq X$.\\
+
+  Finally, suppose that $f$ is not injective. Then there are two values $x, y \in X$ such that $f(x) = f(y)$ but $x \neq y$. Now, the sets $\{x\}$ and $\{y\}$ are disjoint, so
+  \begin{align*}
+    f(\{x\} \cap \{y\}) & = f(\emptyset) \\
+                        & = \emptyset
+  \end{align*}
+  But $f(x) \in f(\{x\})$ and also $f(x) \in f(\{y\})$, so their intersection is not empty and hence $f(\{x\} \cap \{y\}) \neq f(\{x\}) \cap f(\{y\})$. Suppose also that $f$ is injective. If $f(x) \in f(A \cap B)$ then $x \in A \cap B$ since $x$ is the unique value in $X$ such that its image is $f(x)$. So, $x \in A$ and $x \in B$, therefore $f(x) \in f(A)$ and $f(x) \in f(B)$ and we conclude that $f(x) \in f(A) \cap f(B)$. If $f(x) \in f(A) \cap f(B)$ then $f(x) \in f(A)$ and $f(x) \in f(B)$, and we conclude that $x \in A$ and $x \in B$, so $x \in A \cap B$ and $f(x) \in f(A \cap B)$, so $f(A \cap B) = f(A) \cap f(B)$.
+}
+
+\problem
+An operation $\circledcirc$ on a set $X$ is called \textit{anticommutative} if it satisfies the following:
+\begin{enumerate}
+  \item There is a right identity element $r := r_X$, that is, $\exists r \in X: x \circledcirc r = x$ for all $x \in X$.
+  \item $x \circledcirc y = r \Leftrightarrow (x \circledcirc y) \circledcirc (y \circledcirc x) = r \Leftrightarrow x = y$ for all $x, y \in X$.
+\end{enumerate}
+Show that, whenever $X$ has more than one element, an anticommutative operation $\circledcirc$ on $X$ is not commutative and has no identity element.
+
+\solution{
+  Suppose that $X$ has at least two element or more and $\circledcirc$ has a right element $r$. Suppose that $x \circledcirc y = y \circledcirc x$ for some $x, y$. Then we have:
+  \begin{align*}
+    x \circledcirc y                                   & = y \circledcirc x                                   \\
+    (x \circledcirc y) \circledcirc (y \circledcirc x) & = (y \circledcirc x) \circledcirc (y \circledcirc x)
+  \end{align*}
+  And by the property $2$, we conclude that:
+  \begin{align*}
+    (x \circledcirc y) \circledcirc (y \circledcirc x) & = r
+  \end{align*}
+  But this also implies that $x = y$. So, if they are different, $x \circledcirc y \neq y \circledcirc x$ and therefore the operation is not commutative. Now, suppose it has an identity element $e$, it is easy to see that $e = r$. Now, we know that at least we can pick a different element of $e$, name it $x$. But by definition, $e \circledcirc x = x \circledcirc e = x$, which implies that $e = x$ but we have picked them different. So, it cannot have an Identity element.
+}
+
+\problem 
+Let $\circledcirc$ and $\circledast$ anticommutative operations on $X$ and $Y$. Further, let $f: X \to Y$ satisfy:
+	$$\begin{array}{ccc}
+		f(r_X) = r_Y, & f(x \circledcirc y) = f(x) \circledast f(y),& x, y \in X\\
+	\end{array}$$
+	Prove that:
+	\begin{enumerate}
+		\item $x \sim y$ if and only if $f(x \circledcirc y) = r_Y$ defines an equivalence relation on $X$.
+		\item The function
+		\begin{align*}
+			\begin{matrix}
+				\overline{f}: &X/\sim &\to& Y\\
+				&[x] & \mapsto&f(x)
+			\end{matrix}
+		\end{align*}
+		is well defined and injective. If, in addition, $f$ is surjective, then $\overline{f}$ is bijective.
+	\end{enumerate}
+
+\solution{
+  \begin{enumerate}
+		\item To prove that, we need to prove that the relation is reflexive, symmetric and transitive.
+		\begin{itemize}
+			\item \textbf{Reflexive:} Since $x \circledcirc x = r_X$ for all $x \in X$ and $f(r_X) = r_Y$ it is easy to see that $x \sim x$.
+			\item \textbf{Symmetry:} Suppose that $x \sim y$. That means that $f(x \circledcirc y) = r_Y$. We know that $f(x \circledcirc y) = f(x) \circledast f(y) = r_Y$, so we conclude that $f(x) = f(y)$ and therefore $f(y) \circledast f(x) = f(y \circledcirc x) = r_Y$, so $y \sim x$.
+			\item \textbf{Transitivity:} Suppose that $f(x \circledcirc y) = f(y \circledcirc z) = r_Y$. Since $f(x) \circledast f(y) = r_Y$ and $f(y) \circledast f(z) = r_Y$ then $f(x) = f(y) = f(z)$. So, $f(x) \circledast f(z) = f(x \circledcirc z) = r_Y$ and we conclude that $x \sim y$. 
+		\end{itemize}
+		so we have proved that it defines an equivalence relation.
+		\item Since we have proved this is an equivalence relation and since $f$ is a function, $\overline{f}$ is well defined. Suppose that we have two classes such that $\overline{f}([x]) = \overline{f}([y])$. By definition, $f(x) = f(y)$, so we have that $f(x) \circledast f(y) = r_Y$ which is that $f(x \circledcirc y) = r_Y$, and therefore $x \sim y$, so $[x] = [y]$. We have concluded that the function is injective.\\
+		
+		Suppose that $f$ is surjective. That means, that for any element $y \in Y$, there is $x \in X$ such that $f(x) = y$. Now, we can assure then the existence of $[x]$ and therefore we know that $\overline{f}([x]) = f(x) = y$, so we know that $\overline{f}$ is Surjective and then bijective.
+	\end{enumerate}
+}
+
+\problem Let $R$ be a relation on $X$ and $S$ a relation on $Y$. Define a relation $R \times S$ on $X \times Y$ by
+\begin{align*}
+  (x, y)(R \times S)(u, v) &\Longleftrightarrow (xRu) \wedge (ySv)
+\end{align*}
+for $(x, y), (u, v) \in X \times Y$. Prove that if $R$ and $S$ are equivalence relations, then so is $R \times S$.
+
+\solution{
+  First, the order pair $(x, y)$ is related to itself since $R$ and $S$ are equivalence relations and $xRx$ and $ySy$. Now, if $(x, y)(R \times S)(u, v)$ then $xRu$ and $ySv$, but then $uRx$ and $vRy$ so $(u, v)(R \times S)(x, y)$. At last, if $(x, y)(R \times S)(u, v)$ and $(u, v)(R \times S)(a, b)$ then $xRu$, $ySv$, $uRa$ and $vSb$, and by transitivity of both relations $xRa$ and $ySb$, so $(x, y)(R \times S)(a, b)$.
+}
+\end{document}

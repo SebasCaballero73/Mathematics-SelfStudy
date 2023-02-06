@@ -1,0 +1,371 @@
+\documentclass{tufte-handout}
+
+\title{Course: Set Theory(Relation \& Functions)}
+\author{Sebastián Caballero}
+\date{\today}
+
+\usepackage{color-tufte}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+A simple notes template. Inspired by Tufte-\LaTeX class and beautiful notes by \begin{verbatim*}
+	https://github.com/abrandenberger/course-notes
+\end{verbatim*}
+\end{abstract}
+\section{Relations}
+\subsection{Basics of relations}
+So far, our axiomatic development has let us create most of the basic set theory. From here, we are going to define the most important structures in mathematics: Relation and functions. They are so important due to the fact that many of the constructions we are going to do in most of the courses will be done in terms of Functions and relations.\\
+
+So, what is a relation? Naively, we can think a relation as saying that objects from a set $A$ are assigned to objects from a set $B$. Think for example on students and their College ID, each student is assigned to a college ID. In mathematics, we use order pairs to represent that concept, since for $(a, b)$ we can express that some $a$ is related somehow with $b$.\\
+
+\begin{definition}[Relation]
+	Let $A, B$ be sets. A set $R$ is a relation from $A$ to $B$ if $R \in \mathcal{P}(A \times B)$. If $A = B$ we call $R$ a relation over $A$
+\end{definition}
+
+Straightforward, we assign the definition to a known structure that contains order pairs. For example $\emptyset$ and $A \times B$ are relations, and so are any subset of $A \times B$. Ok, we have seen that a relation is derived from a cartesian product, can we do the reverse? Sure, note that every element in $R$ is like $(a, b)$ so they are in reality $\{\{a\}, \{b\}\}$ so we can unite all these sets and get a set of sets, and unite them again to get all the elements used. 
+
+\begin{definition}[Field of a relation]
+	Let $R$ be a relation, we define the field to be $\cup(\cup R)$ and it is denoted as $\tau(R)$
+\end{definition}
+
+Note that from here, we have sufficient information to make a distinction between the first components and the second ones. We just separate them with the field.
+
+\begin{definition}[Domain and range of a relation]
+	Let $R$ be a relation, we define the domain, denoted as $Dom(R)$
+	\begin{align*}
+		Dom(R) &:= \{x \in \tau(R): \exists y \in \tau(R)((x, y) \in R)\}
+	\end{align*}
+	And we define the range of the relation denoted as $Ran(R)$ as:
+	\begin{align*}
+		Ran(R) &:= \{y \in \tau(R): \exists x \in \tau(R)((x, y) \in R)\}
+	\end{align*}
+\end{definition}
+
+And we can also think on the inverse relation. What happens if we just turn the order pairs? This generates what is called the inverse relation.
+
+\begin{definition}[Inverse relation]
+	Let $R$ be a relation, then $R^{-1}$ is the inverse relation of $R$ and it is defined as:
+	\begin{align*}
+		R^{-1} &:= \{(y, x) \in \tau(R): (x, y) \in R\}
+	\end{align*}
+\end{definition}
+
+These are the basics tools one need for relations. We are going to explore the most used types of relations in mathematics.
+
+\subsection{Properties of relations}
+We just need one more tool before moving on. For a relation, we know that its elements are just ordered pairs $(a, b)$. If such order pair is in a relation $R$, we write $aRb$ as \textit{$a$ is related to $b$ through $R$}.
+
+\begin{definition}[Properties of relations]
+	Let $A$ be a set and let $R$ be a relation over $A$. Then:
+	\begin{itemize}
+		\item We say that $R$ is \textbf{Reflexive} if for all $x \in A$, $xRx$
+		\item We say that $R$ is \textbf{Symmetric} if for all $x, y \in A$, if $xRy$ then $yRx$
+		\item We say that $R$ is \textbf{Antisymmetric} if for all $x, y \in A$, if $xRy$ and $yRx$ then $x = y$
+		\item We say that $R$ is \textbf{Transitive} if for all $x, y, z \in A$, if $xRy$ and $yRz$ then $xRz$
+	\end{itemize}
+\end{definition}
+
+And at last we define just for proofs that $\Delta_X = \{(x, y) \in X \times X: x = y\}$ for any set $X$. 
+
+\begin{theorem}
+	$R$ over $X$ is a Antisymmetric relation if and only if $R \cap R^{-1} \subseteq \Delta_X$
+\end{theorem}
+\begin{proof}
+	First, suppose that $R$ is Antisymmetric. Then suppose that $(x, y) \in R \cap R^{-1}$, we must have that $(x, y) \in R$ and $(x, y) \in R^{-1}$, but also $(y, x) \in R$ and $(y, x) \in R^{-1}$ by definition. And since $R$ is Antisymmetric then $x = y$, so $(x, x) \in R$ and $(x, x) \in R^{-1}$, hence $(x, x) \in R \cap R^{-1}$ and we conclude that $(x, x) \in \Delta_X$.\\
+
+	Now, suppose that $R \cap R^{-1} \subseteq \Delta_X$. Then suppose that $(x, y) \in R$ and $(y, x) \in R$. By definition, $(x, y) \in R^{-1}$ and $(y, x) \in R^{-1}$, so we must have that $(x, y) \in R \cap R^{-1}$ and therefore $(x, y) \in \Delta_X$, therefore $x = y$.
+\end{proof}
+
+\begin{theorem}
+	$R$ over $X$ is symmetric if and only if $R = R^{-1}$
+\end{theorem}
+\begin{proof}
+	Suppose that $R$ is symmetric. Then if $(x, y) \in R$ we have that $(y, x) \in R$, but also $(x, y) \in R^{-1}$. And we can use a similar argument to show that if $(x, y) \in R^{-1}$ then $(x, y) \in R$, so $R = R^{-1}$.\\
+
+	Suppose that $R = R^{-1}$, so if $(x, y) \in R$, we have that $(y, x) \in R^{-1}$ but then $(y, x) \in R$ and we conclude that $R$ is symmetric.
+\end{proof}
+
+For the last proof, we are going to use an important definition.
+\begin{definition}[Composition of relations]
+	Suppose that $R$ is a relation defined from $A$ to $B$ and $S$ is a relation defined from $B$ to $C$. Then $S \circ R$ is defined as:
+	\begin{align*}
+		S \circ R &:= \{(x, z) \in A \times C: \exists y \in B((x, y) \in R\wedge (y, z) \in S) \}
+	\end{align*}
+\end{definition}
+
+\begin{theorem}
+	$R$ over $X$ is Transitive if and only if $R \circ R \subseteq R$
+\end{theorem}
+\begin{proof}
+	Suppose that $R$ is Transitive. Suppose that $(x, z) \in R \circ R$ then there must be $y$ such that $(x, y) \in R$ and $(y, z) \in R$. But since $R$ is transitive, $(x, z) \in R$.\\
+
+	Suppose that $R \circ R \subseteq R$. Suppose now that $(x, y)$ and $(y, z)$ are in $R$. Then $(x, z) \in R \circ R$, but then by hypothesis $(x, z) \in R$.
+\end{proof}
+
+\section{Equivalence relations}
+The first special type of relations we are going to see, are called Equivalence relations. It tries to generalize the behavior of $=$ relation and will even let us divide a set.
+\begin{definition}[Equivalence relations]
+	Let $R$ be a relation over the set $X$. If $R$ satisfies these properties:
+	\begin{itemize}
+		\item \textbf{Reflexivity:} It is true that $\Delta_X \subseteq X$
+		\item \textbf{Symmetry:} If $xRy$ then $yRx$ for any $x, y \in X$
+		\item \textbf{Transitivity:} If $xRy$ and $yRz$ then $xRz$ for any $x, y, z \in x$
+	\end{itemize}
+	then $R$ is an equivalence relation
+\end{definition}
+
+Familiar examples of that are congruence of triangles, the identity relation, congruence of integers, etc. Suppose we have a set $X$ and an equivalence relation $R$ over that set. We define an equivalence class of $x \in X$ as:
+\begin{align*}
+	[x] &:= \{y \in X: xRy\}
+\end{align*} 
+From which we can assert some useful properties. For example, they are not empty since at least $x \in [x]$(Why?), and if $xRy$ then it follows that $[x] = [y]$. From this, we can formulate an important result with the next definition.
+
+\begin{definition}[Partition of a set]
+	A nonempty collection of sets $A$ is a partition of a nonempty set $X$ if:
+	\begin{enumerate}
+		\item $B \subseteq X$ for any $B \in A$
+		\item $B \neq \emptyset$ for any $B \in A$
+		\item $B \cap B' = \emptyset$ for $B, B' \in A$ if $B \neq B'$
+		\item $\bigcup A = X$
+	\end{enumerate}
+\end{definition}
+
+it is incredible to see that in reality, the partitions and equivalence classes are just the same thing for a set. And this is what we are going to prove.
+
+\begin{theorem}
+	Every partition of a set $X$ is equivalent to an equivalence class over $X$
+\end{theorem}
+\begin{proof}
+	First, suppose we have a equivalence partition $R$ over $X$. Now, for any $x \in X$, it is easy to see that $[x] \subseteq X$ and also we have just talked that at least $x \in [x]$. Suppose now that we have two different equivalence classes $[x]$ and $[y]$ but they are not disjoint. Then there is $z \in [x]$ and $z \in [y]$, so $xRz$ and $yRz$, but it also implies by symmetry and transitivity that $xRy$ and therefore $[x] = [y]$ which leads to a contradiction, so they must be disjoint. And it is easy to see that $\cup A = X$. Therefore, $R$ forms a partition over $X$, and we denoted it by $X / R$.\\
+
+	Now, suppose we are with a partition $A$ of $X$. Then we can define the equivalence class:
+	\begin{align*}
+		R &:= \{(x, y): (\exists B \in A) \,\, (x, y \in B)\}
+	\end{align*}
+	i.e, that two elements are related if they are in the same set of $A$. It is reflexive since $x$ is in the same set of $x$. It is obviously symmetric and transitive, so it must be an equivalence relation.
+\end{proof}
+
+As a final note, when we work with equivalence relations, we usually denote or use the symbol $\sim$.
+
+\section{Order relations}
+We just have generalized the behavior of $=$ in a beautiful way. But we can do the same for $\le$, and it is something called order relations. Through our study in Analysis, we will see that order relations are important for working with fields.
+
+\begin{definition}[Order relation]
+	Let $R$ be a relation over $X$, we say that $R$ is an order relation over $X$ if:
+	\begin{itemize}
+		\item \textbf{Reflexivity:} It is true that $\Delta_X \subseteq X$
+		\item \textbf{Antisymmetry:} If $xRy$ then $yRx$, implies that $x = y$, for any $x, y \in X$
+		\item \textbf{Transitivity:} If $xRy$ and $yRz$ then $xRz$ for any $x, y, z \in x$
+	\end{itemize}
+	Also, we for any $x, y \in R$ such that $x \neq y$, it must hold that $xRy$ or $yRx$ then $R$ is said to be a total order, else, it is a partial order.
+\end{definition}
+
+We usually denoted an order by $\le$ and we use the notation:
+\begin{itemize}
+	\item $x \ge y$ if and only if $y \le x$
+	\item $x < y$ if and only if $x \le y$ and $x \neq y$
+	\item $x > y$ if and only if $x \ge y$ and $x \neq y$
+\end{itemize}
+
+Good! We can define now some useful terminology for orders.
+\begin{definition}
+	Suppose $X$ is an ordered set by $\le$ and $A$ is a subset of $X$
+	\begin{itemize}
+		\item $l$ is said to be a minimum of $A$ (Noted as $\min A$) if $l \in A$ and $l \le x$ for any $x \in A$
+		\item $l$ is said to be a lower bound of $A$ if $l \in X$ and $l \le x$ for any $x \in A$
+		\item $l$ is said to be the infimum of $A$(Noted as $\inf A$) if $l$ is a lower bound of $A$ and if $k$ is also a lower bound for $A$, then $k \le l$.
+		\item $u$ is said to be a maximum of $A$(Noted as $\max A$) if $u \in A$ and $u \ge x$ for any $x \in A$
+		\item $u$ is said to be an upper bound of $A$ if $u \in X$ and $u \ge x$ for any $x \in A$
+		\item $u$ is said to be the supremum of $A$(Noted as $\sup A$) if $u$ is an upper bound of $A$ and if $v$ is also an upper bound for $A$, then $u \le v$.
+	\end{itemize}
+\end{definition}
+
+There are interesting relations over these elements. If $\inf A$ exists, it doesn't mean that $\min A$ does, or if a lower bound exists for $A$, then $\inf A$ could not to exist. But if $\inf A$ exists and $\inf A \in A$ then it is also $\min A$!(And it applies for the $\max A$, $\sup A$ and upper bounds).
+
+So, before we continue on relations, we are going to explore a bit more of what can be the most fundamental concept of all mathematics just after the sets.
+
+\section{Functions}
+Functions are seen in analysis, geometry, algebra and literally in every branch of mathematics. The main idea is to assign elements from a set, to elements of another set. The concept of function can be written in terms of relations, which ensure they are universal and don't depend on arithmetic, algebra, etc.
+
+\begin{definition}[Function]
+	Let $f$ be a relation subset of $X \times Y$, with $X, Y$ sets. We call $f$ a function or map if:
+	\begin{itemize}
+		\item \textbf{Functionality:} For any $x \in X$, if $x\, f\, y$ and $x\,f\,z$ then $y = z$
+		\item \textbf{Whole:} For any $x \in X$, there is $y \in Y$ such that $xfy$
+	\end{itemize}
+	We denote that $x \, f\, y$ as $f(x) = y$ and write $f: X \to Y$, calling $X$ the domain and $Y$ the codomain.
+\end{definition}
+
+In other words, to the elements of $X$, we assign one and only one element of $Y$. Also, we define that two functions $f$ and $g$ are equal if their domain and codomain are equal sets and $f(x) = g(x)$ for any $x$ in the domain. We denoted the domain of a function as $Dm_f$ and the codomain as $Cd_f$. Also, we define the image of $f$ as:
+\begin{align*}
+	Im(f) &:= \{y \in Y: \exists x \in X \, \, ,f(x) = y\}
+\end{align*}
+
+We have a few examples of functions. For example:
+\begin{itemize}
+	\item  $Id_X$ is a function from $X$ to $X$
+	\item The inclusion function, where for a set $X$ and a subset $A$, we define $i: A \to X$ as $i(x) = x$ if $x \in A$
+	\item If $X, Y$ both sets are nonempty then the function $c: X \to Y$ where $c(x) = b$ for any $x \in A$ and a fixed $b \in Y$ is called the constant function.
+	\item Also, if $A \subseteq X$ and we have a function $f: X \to Y$, we define a function $f|_A: A \to Y$ where $f|_A(x) = f(x)$. $f|_A$ is called a restriction of $f$
+	\item Similarly, if $g: A \to Y$ and $A \subseteq X$, then any function $f: X \to Y$ in which $f(a) = g(a)$ for $a \in A$ is called an extension of $g$.
+	\item The characteristic function is defined for a set $A$ as $\chi_A: A \to \{0, 1\}$ where:
+	\begin{align*}
+		\chi_A(x) &:= \begin{cases}
+			1, &x \in A\\
+			0, &x \in A^c
+		\end{cases}
+	\end{align*}
+	\item The projection of tuples we have seen is also a function
+\end{itemize}  
+
+We define also an special operation called the composition of functions. If $f: X \to Y$ and $g: Y \to Z$ we define the composition $g \circ f$ as:
+$$\begin{matrix}
+	g \circ f: & X &\to & Z\\
+	& x &\mapsto & g(f(x))
+\end{matrix}$$
+And it is easy to see that it is a function.
+\begin{theorem}
+	Suppose $f: X \to Y$, $g: Y \to Z$ and $h: Z \to W$. Then:
+	\begin{align*}
+		h \circ (g \circ f) &= (h \circ g) \circ f
+	\end{align*}
+\end{theorem} 
+\begin{proof}
+	First, both functions have the common domain $X$ and codomain $W$. Now, if $$(h \circ (g \circ f))(x) = y$$ then there must be $z$ such that $h(z) = y$ and $(g \circ f) = g(f(x)) = z$, so there also exists $w$ such that $f(x) = w$ and $g(w) = z$. Now, $((h \circ g) \circ f)(x) = (h \circ g)(f(x))$ but it implies that $(h \circ g)(f(x)) = (h \circ g)(w)$, and by definition, it is $h(g(w))$, which is $h(z) = y$, so we conclude that both functions are the same.  
+\end{proof}
+
+This result also let us write without parenthesis the composition or three or more functions. With this, we are ready to talk about special types of functions.
+\begin{definition}
+	Let $f: X \to Y$ be a function. Then:
+	\begin{itemize}
+		\item \textbf{Injective function:} $f$ is injective if and only if $f(x) = f(y)$ implies that $x = y$ for any $x, y \in x$
+		\item \textbf{Surjective function:} $f$ is surjective if and only if for any $y \in Y$, there is $x \in X$ such that $f(x) = y$
+		\item \textbf{Bijective function:} $f$ is a bijection if and only if it is injective and surjective
+	\end{itemize}
+\end{definition}
+
+These are important types of function that you should have in mind! and they give arise to certain properties we will explore in form of exercises. For now, let's end with certain sets and functions derived from a function. If $f$ is a function from $X$ to $Y$, then we define the direct image of $A$ under $f$ if $A \subseteq X$ as:
+\begin{align*}
+	f(A) &:= \{f(x) \in Y: x \in A\}
+\end{align*}
+And similarly, we define the inverse image of $B$ under $f$ if $B \subseteq Y$ as:
+\begin{align*}
+	f^{-1}(B) &:= \{x \in X: f(x) \in B\}
+\end{align*}
+But although they are sets, we can define two functions as follows directly from these definitions:
+\begin{align*}
+	\begin{matrix}
+		f: &\mathcal{P}(X)& \to &\mathcal{P}(Y)\\
+		&A &\mapsto &f(A)
+	\end{matrix} && \begin{matrix}
+		f^{-1}: &\mathcal{P}(Y)& \to &\mathcal{P}(X)\\
+		&B&\mapsto&f^{-1}(B)
+	\end{matrix}
+\end{align*}
+although $f^{-1}$ not always exists. And we define the fiber of $y \in Y$ just as $f^{-1}(\{y\}) \subseteq X$. Finally, we denote the set of all functions from $X$ to $Y$ as $Funct(X, Y)$ or $Y^X$.\\
+
+\subsection{Inverse functions}
+Obviously when we construct functions, we are going from one set to another. Then one question can arise, Could we get back? Well, the inverse functions are the response for this question. We will define them quickly and later we will prove all their properties.
+
+\begin{definition}[Inverse function]
+	Let $f: X \to Y$ be a function.
+	\begin{itemize}
+		\item \textbf{Left inverse:} If there is a function $g: Y \to X$ such that $g \circ f = Id_X$ then $g$ is a left inverse of $f$
+		\item \textbf{Right inverse:} If there is a function $g: Y \to X$ such that $f \circ g = Id_Y$ then $g$ is a right inverse of $f$
+		\item \textbf{Inverse:} If there is a function $g: Y \to X$ such that $g$ is a left inverse and a right inverse for $f$, it is called just an inverse.
+	\end{itemize}
+\end{definition}
+
+Now, it bring us an important result about the relation of inverses and bijective functions.
+\begin{theorem}
+	Let $f: X \to Y$ be a function.
+	\begin{itemize}
+		\item $f$ is injective if and only if it has a left inverse
+		\item $f$ is surjective if and only if it has a right inverse
+	\end{itemize}
+\end{theorem}
+\begin{proof}
+	Suppose $f: X \to Y$ is a function. Let's start with the first proposition. 
+	\begin{itemize}
+		\item[$\Rightarrow)$] Suppose $f$ is injective, so define $g: Y \to X$ as $g(y) = x$ if and only if $f(x) = y$ and in case such element doesn't exists, $g(y) = a$ for an arbitrary $a \in X$. If you do $g(f(x)) = x$, so $g \circ f = Id_X$. 
+		\item[$\Leftarrow)$] Suppose $f$ has a left inverse. Then there is a function $g: Y \to X$ such that $g \circ f = Id_X$. Suppose $x, y \in X$ are such that $f(x) = f(y)$, then $g(f(x)) = g(f(y))$, but by hypothesis $x = y$ so $f$ is injective. 
+	\end{itemize}
+	Now, similarly with the second proposition.
+	\begin{itemize}
+		\item[$\Rightarrow)$] Suppose $f$ is surjective. So for any $y \in Y$, there is $x \in X$ such that $f(x) = y$. Let's define $g: Y \to X$ remembering that $f^{-1}(y)$ could have a single or many elements. If it has just a single element, $g(y)$ would be that one. Else, just select an arbitrary element and in that way note that $f \circ g = Id_Y$.
+		\item[$\Leftarrow)$] Suppose $f$ has a right inverse. That implies that exists $g: Y \to X$ such that $f \circ g = Id_Y$. That means that for any $y \in Y$, $f(g(y)) = y$, and since $g(y) \in X$ we conclude that $f$ is surjective.
+	\end{itemize}
+\end{proof}
+\begin{corollary}
+	If $f: X \to Y$ is a function. Then $f$ is bijective if and only it has an inverse. 
+\end{corollary}
+\begin{proof}
+	If $f$ is bijective then it is injective and surjective. So, it has an inverse by left and by right, name them $g, h$. And:
+	\begin{align*}
+		g &= g \circ Id_Y\\ 
+		&= g \circ (f \circ h)\\
+		&= (g \circ f) \circ h\\
+		&= Id_X \circ h\\
+		&= h
+	\end{align*}
+	So $f$ has only an inverse by left and right and therefore it has an inverse. If it has an inverse, it has a left and right inverse, so it is injective and surjective, and hence, bijective.
+\end{proof}
+
+\subsection{A bit of combinations}
+Before seeing operations, we could combine some of relations and function in the next examples.
+\begin{itemize}
+	\item Let $X$ be a set and $Y$ a partially ordered set over $\le$, we define a partial order $\preccurlyeq$ over $Funct(X, Y)$ as:
+	\begin{align*}
+		f \preccurlyeq g &\Longleftrightarrow \forall x \in X, \,f(x) \le g(x)
+	\end{align*}
+
+	\item Let $f: X \to Y$ be a function. We can define an equivalence relation $\sim$ as:
+	\begin{align*}
+		x \sim y &\Longleftrightarrow f(x) = f(y)
+	\end{align*}
+\end{itemize}
+Also, we can define from an equivalence relation a function surjection called the canonical quotient function from $X$ to $X/R$ as follows:
+\begin{align*}
+	\begin{matrix}
+		p_X: & X & \to & X/R\\
+		& x &\mapsto & [x]
+	\end{matrix}
+\end{align*}
+
+\section{Operations}
+As an end of this section before the exercises, I want to talk about operations. Operations like we are familiar with as addition acts like getting two elements and return another one. For example, in $3 + 5 = 8$ the numbers $3$ and $5$ acts as inputs and $8$ acts as an output. And we know how to define inputs and outputs in mathematics now thanks to functions!
+
+\begin{definition}[Operation]
+	Let $A$ be a nonempty set. A function $\circledcirc: A \times A \to A$ is called an operation on $A$. We note $\circledcirc(x, y)$ as $x \circledcirc y$. And also, if we have $X$ and $Y$ nonempty subsets of $A$ we can define:
+	\begin{align*}
+		X \circledcirc Y &:= \{x \circledcirc y: x \in X \wedge y \in Y \}
+	\end{align*}
+	and if $X = \{x\}$ then we write $x \circledcirc Y$(Similarly if $Y = \{y\})$. At last, if $X$ is a nonempty subset and $X \circledcirc X \subseteq X$ we say that $X$ is closed un $\circledcirc$.
+\end{definition}
+
+We are familiar with many operations, like the ones we are used to work with in numbers. But for example $\circ$ over functions of $X$ to $X$ is also a operation(It is easy to see since $f \circ g$ will always give a function when they have the same domain and codomain). Also, in $\mathcal{P}(X)$ we know operations as $\cup$, $\cap$, $\Delta$. \\
+
+Interesting properties we have seen is that these operations don't require us to write the with parenthesis when we work with more than 2 elements. It is called \textit{associativity}, defined formal as an operation $\circledcirc$ such that:
+\begin{align*}
+	x \circledcirc (y \circledcirc z) &= (x \circledcirc y) \circledcirc z
+\end{align*}
+for any $x, y, z$ in the domain of the operation. If an operation $\circledcirc$ has an element $e$ such that $x \circledcirc e = e \circledcirc x = x$, we call it an identity element. 
+
+\begin{theorem}[Identity element]
+	If an operation has identity element, it is unique
+\end{theorem}
+\begin{proof}
+	Suppose $e$ and $i$ act as identity elements. Then $e = e \circledcirc i = i$ so they are the same.
+\end{proof}
+
+And as way to end this topic just for now, we define the operation in functions.
+\begin{definition}
+	If $X$ and $Y$ are nonempty sets and $Y$ has an operation $\circledcirc$ we define over $Funct(X, Y)$ the operation $\circledcirc$ as:
+	\begin{align*}
+		(f \circledcirc g)(x) &= f(x) \circledcirc g(x)
+	\end{align*}
+\end{definition}
+\end{document}

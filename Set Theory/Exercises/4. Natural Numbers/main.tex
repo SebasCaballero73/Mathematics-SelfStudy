@@ -1,0 +1,129 @@
+%========Top Matter=========== (fold)
+\documentclass[final,expand]{problemset}
+% For plot: pfdplots and settings
+\usepackage{pgfplots}
+\pgfplotsset{width=7cm,
+  compat=newest,
+  label style={font=\small},
+  legend style={font=\small}
+}
+%========top_matter=========== (end)
+
+\begin{document}
+\heading[Caballero]{Sebastián Caballero}{Set Theory}{Problem set}{Axiomatization}
+
+\problem
+Show that for all $n, m \in \mathbb{N}$, $m < n$ if and only if $m \subset n$
+
+\solution{
+  \begin{itemize}
+    \item[$\Rightarrow)$] Suppose that $m < n$, so $m \in n$, and now suppose that $p \in m$. We have seen that in $\mathbb{N}$ the relation $\in$ is transitive, so $p \in n$, but this implies that $m \subset n$.
+    \item[$\Leftarrow)$] Suppose that $m \subset n$, it is impossible that $m = n$ because $(\exists x)(x \in n \wedge x \not \in m)$ and if $n < m$ then $n \subset m$ but this would mean that $m \subset m$ which is absurd. So, we must conclude by the trichotomy that $m < n$.
+  \end{itemize}
+}
+
+\problem
+Show that for all $n \in \mathbb{N}$, if $x \in n$, then $x \in \mathbb{N}$.
+
+\solution{
+  For $n = 0$, it is absurdly true. If $n = 1$, then $n = \{0\}$ and $0 \in \mathbb{N}$. Suppose this is true in general for $n$, and suppose that $x \in n^+$. Then, $x \in n$ or $x = n$. If $x \in n$, by the hypothesis $x \in \mathbb{N}$ and if $x = n$ it is obvious that $x \in \mathbb{N}$.
+}
+
+\problem 	Show that for all $m, n \in \mathbb{N}$, $\min\{n, m\}= n \cap m$.
+
+\solution{
+  Without loss of generality, we can suppose that $n \le m$ and so $\min\{n, m\} = n$. This would implies that $n \subseteq m$ and therefore $n \cap m = n$, so $\min\{n, m\} = n \cap m$.
+}
+
+\problem Show that for all $m, n, a \in \mathbb{N}$:
+\begin{itemize}
+  \item If $a + m = a + n$ then $m = n$
+  \item If $a > 0$ and $a \cdot m = a\cdot n$ then $m = n$
+  \item If $a > 1$ and $a^m = a^n$ then $m = n$
+\end{itemize}
+
+\solution{
+  Suppose that $m \neq n$, then $m < n$ or $n < m$. Suppose with no loss of generality that $m < n$, so by the monotony laws we have:
+  \begin{itemize}
+    \item $a + m < a + n$
+    \item If $a > 0$, $a \cdot m < a \cdot n$
+    \item If $a > 1$, $a^m < a^n$
+  \end{itemize}
+  And since the relation $<$ is irreflexive(In other words, that $n \not < n$) then it is not possible that they are equal. So:
+  \begin{itemize}
+    \item $a + m \neq a + n$
+    \item If $a > 0$, $a \cdot m \neq a \cdot n$
+    \item If $a > 1$, $a^m \neq a^n$
+  \end{itemize}
+}
+
+\problem Let $n, m \in \mathbb{N}$:
+\begin{itemize}
+  \item Show that $m + n = 0$ if and only if $m = n = 0$
+  \item Show that $m \cdot n$ if and only if $m = 0$ or $n = 0$
+\end{itemize}
+
+\solution{
+  It is obvious the left side of both propositions. Now, for prove the other sides:
+  \begin{itemize}
+    \item Suppose $n \neq 0$ and $m$ could be or not $0$. Since $n \neq 0$ then $(\exists x)(x \in \mathbb{N} \wedge x^+ = n)$. This implies that:
+          \begin{align*}
+            m + n & = m + x^+   \\
+                  & = (m + x)^+
+          \end{align*}
+          And since $a^+ \neq 0$ for any $a \in \mathbb{N}$, we have that $m + n \neq 0$.
+    \item Suppose $m \cdot n = 0$ and that $n \neq 0$. Then, we can assure that $(\exists x)(x\in \mathbb{N} \wedge x^+ = n)$ and therefore:
+          \begin{align*}
+            m \cdot n & = m \cdot x^+         \\
+                      & = (m \cdot x) + m = 0
+          \end{align*}
+          So by the previous proposition we can conclude that $m \cdot x = 0$, and especially $m = 0$.
+  \end{itemize}
+}
+
+\problem Prove that for all $n, m \in \mathbb{N}$, $m \le n$ if and only if exists $k \in \mathbb{N}$ such that $m + k = n$.
+
+\solution{
+  \begin{itemize}
+    \item[$\Rightarrow)$] For $n = 0$ this is true easily true. Suppose it is true for $n$ and suppose that $m \le n^+$. If $m = n^+$ it is obvious so if $m < n^+$ then $m < n$ or $m = n$. For the first case, there is $k$ such that $m + k = n$ and then $m + (k + 1) = n^+$. If $m = n$ then $m + 1 = n^+$.
+    \item[$\Leftarrow)$] The case for when $n = 0$ is trivial. Suppose this is true $n$, so that for $n^+$ if there is $k$ such that $m + k = n^+$ there are two possibilities. If $k = 0$ then $m= n^+$. Else, $\exists x \in \mathbb{N}$ such that $x^+ = k$ and therefore:
+      \begin{align*}
+        m + k     & = n^+ \\
+        m + x^+   & = n^+ \\
+        (m + x)^+ & = n^+ \\
+        m + x     & = n
+      \end{align*}
+      And by the induction hypothesis, we have that $m \le n$ and since $n < n^+$ then $m \le n^+$.
+  \end{itemize}
+}
+
+\problem Prove that for all $a, b \in \mathbb{N}$, if $b > 0$ then there exists unique $q, r$ such that $r < b$ and $a = bq + r$
+
+\solution{
+  For a fixed $b > 0$, it is easy to see that the proposition is true for $a = 0$, since $0 = b \cdot 0 + 0$. Suppose $a = b \cdot q + r$ for $q, r \in \mathbb{N}$ and $r < b$. There are two cases, if $r^+ = b$ then:
+	\begin{align*}
+		a &= b \cdot q + r\\
+		a^+ &= b \cdot q + r^+\\
+		a^+ &= b \cdot q + b\\
+		a^+ &= b \cdot(q + 1) + 0
+	\end{align*}
+	But if $r^+ < b$ then
+	\begin{align*}
+		a &= b \cdot q + r\\
+		a^+ &= b \cdot q + r^+\\
+	\end{align*}
+	And in any case, the proposition is true. So, it is true for all $a$. To prove that this is unique, then take $a = b \cdot q + r$ and $a = b \cdot p + s$ such that $p, q, r, s \in \mathbb{N}$ and $r, s < b$. Assume that $r \le s$ so we would have that
+	\begin{align*}
+		b \cdot p + s &= b \cdot q + r\\
+		&\le b \cdot q + s 
+	\end{align*}
+	And we conclude that $p \le q$. In the other hand, we have:
+	\begin{align*}
+		b \cdot q &\le b \cdot q + r\\
+		&= b\cdot p + s\\
+		&< b\cdot p + b\\
+		&= b\cdot(p + 1)
+	\end{align*}
+	So $b \cdot q < b \cdot (p + 1)$ and we would have that $ q < p +1$, so we have in summary that $p \le q < p + 1$ which is only possible if $p = q$. And now, it follows easily that $r = s$.
+}
+\end{document}
