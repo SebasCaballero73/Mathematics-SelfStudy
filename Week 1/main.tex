@@ -1,0 +1,152 @@
+%========Top Matter=========== (fold)
+\documentclass[final,expand]{problemset}
+% For plot: pfdplots and settings
+\usepackage{pgfplots}
+\pgfplotsset{width=7cm,
+  compat=newest,
+  label style={font=\small},
+  legend style={font=\small}
+}
+%========top_matter=========== (end)
+
+\begin{document}
+\heading[Caballero]{Sebastián Caballero}{Self Study}{Problem set}{Week 1}
+
+\problem
+Give an example of a relation that is reflexive and symmetric but not transitive. What happens if you attempt to use this relation to define a partition on this set?(\textbf{Hint:} Thinking about the second question will help you answer the first one)
+
+\solution{
+If we for example take $X = \{1, 2, 3, 4\}$ and define the relation over $X$ given by:
+\begin{align*}
+	R & := \Delta_X \cup \{(1, 4), (4, 1), (2, 3), (3, 2), (4, 3), (3, 4)\}
+\end{align*}
+Note that the relation is not transitive since $1R4$ and $4R3$ but it is not true $1R 3$. In the other hand, this relation is reflexive since we are putting the set $\Delta_X$ which contains the pairs $(x, x)$ with $x \in X$. It is also symmetric by the definition we gave. Now, if you try to define partitions with this relation, the basic approach are equivalence classes.
+\begin{align*}
+	[1]_R & = \{1, 4\}    \\
+	[2]_R & = \{2, 3\}    \\
+	[3]_R & = \{3, 4\}    \\
+	[4]_R & = \{1, 3, 4\}
+\end{align*}
+
+But the problem with these sets is that they are not disjoint. For example, $[1]_R \cap [4]_R = \{1, 4\} = [1]_R$ and so this cannot be a partition although it satisfies the other two conditions(The sets are not empty and their union is $X$)
+}
+
+\problem
+Define a relation $\sim$ on the set $\mathbb{R}$ by setting that $a \sim b$ if and only if $b - a \in \mathbb{Z}$. Prove that this is an equivalence relation and find a \textit{compelling definition} for $\mathbb{R} / \sim$. Do the same for the relation $\approx$ on the plane $\mathbb{R} \times \mathbb{R}$ defined by declaring $(a_1, a_2) \approx (b_1, b_2)$ if and only if $b_1 - a_1 \in \mathbb{Z}$ and $b_2 - a_2 \in \mathbb{Z}$
+
+\solution{
+	First, we are going to prove that $\sim$ is a equivalence relation:
+	\begin{itemize}
+		\item \textbf{Reflexive:} Since $a - a = 0 \in \mathbb{Z}$ we can assure that $a \sim a$
+		\item \textbf{Symmetric:} Suppose that $a \sim b$, so $b - a \in \mathbb{Z}$ and then we can take the number $- (b - a)$ which is also in $\mathbb{Z}$ but this is $a - b$, so $b \sim a$.
+		\item \textbf{Transitive:} Suppose that $a \sim b$ and $b \sim c$, so $b - a$ and $c - b$ are in $\mathbb{Z}$. We can then add them up and get:
+		      \begin{align*}
+			      (b - a) + (c - b) & = c - a + b - b \\
+			                        & = c - a
+		      \end{align*}
+	\end{itemize}
+	And since it is also in $\mathbb{Z}$, $a \sim c$.
+
+	Now, we can give a definition for the equivalence classes as the integers multiples of a number $r \in \mathbb{R}$. This is:
+	\begin{align*}
+		[r]_\sim & = \{k \cdot r: k \in \mathbb
+		Z\}
+	\end{align*}
+	And so $\mathbb{R}/\sim$ is te equivalence class for all of these sets. Think that we are taking for each class the set of points that are apart from themselves in an integer number. For the second relation, proving that is an equivalence relation:
+	\begin{itemize}
+		\item \textbf{Reflexive:} Since for $(a, b)$ we have that $a - a = b - b = 0 \in \mathbb{Z}$, we have that $(a, b) \approx (a, b)$.
+		\item \textbf{Symmetric:} Suppose that $(a, b) \approx (x, y)$, so $a \sim x$ and $b \sim y$, so $x \sim a$ and $y \sim b$, and therefore $(x, y) \approx (a, b)$
+		\item \textbf{Transitive:} Suppose that $(a, b) \approx (x, y)$ and $(x, y) \approx (r, s)$, so we have that $a \sim x$, $x \sim r$ and $b \sim y$, $y \sim s$. By the transitive property of $\sim$, $a \sim r$ and $b \sim s$ so that $(a, b) \approx(r, s)$
+	\end{itemize}
+
+	The description for these classes of equivalence is the set of points that are in a grid, whose unit is given by the numbers $(a, b)$. This means, a grid of rectangles of lengths $a$ and $b$. Formally, we have:
+	\begin{align*}
+		[(a, b)]_\approx & = \{(k \cdot a, k \cdot b): k \in \mathbb{Z}\}
+	\end{align*}
+}
+
+
+\problem
+Formulate a notion of \textit{epimorphism}, in the style of the notion of monomorphism seen before. Prove that a function is an epimorphism if and only if is surjective.
+
+\solution{
+
+}
+
+
+\problem
+Let $f: A \to B$ be any function. Prove that the graph $\Gamma_f$ of $f$ is isomorphic to $A$
+
+\solution{
+	We can prove this by defining the function:
+	\begin{align*}
+		\begin{matrix}
+			\phi: & A & \to     & \Gamma_f  \\
+			      & a & \mapsto & (a, f(a))
+		\end{matrix}
+	\end{align*}
+	\begin{itemize}
+		\item \textbf{Injective:} Suppose that $a, b \in A$ are such that $\phi(a) = \phi(b)$, so we have $(a, f(a)) = (b, f(b))$ and we can conclude that $a = b$.
+		\item \textbf{Surjective:} For any element in $\Gamma_f$, such element is of the form $(a, f(a))$ and $a \in A$ so $\phi(a) = (a, f(a))$ and therefore it is surjective.
+	\end{itemize}
+}
+
+\problem
+Describe as explicitly as you can all terms in the canonical decomposition of the function $\mathbb{R} \to \mathbb{C}$ defined by $r \mapsto e^{2\pi i r}$.
+
+
+\problem
+Let $(G, \circledcirc)$ a group and let $H$ be a subgroup of $G$, prove that the relation defined over $G$ as:
+\begin{align*}
+	g \sim h \Longleftrightarrow g \in h \circledcirc H
+\end{align*}
+is an equivalence relation.
+
+\solution{
+	Proving the three needed properties:
+	\begin{itemize}
+		\item \textbf{Reflexive:} Note that since $H$ is a subgroup of $G$, $e \in H$ and so $g \in g \circledcirc H$ since $g \circ e = g$.
+		\item \textbf{Symmetric:} Suppose that $g \sim h$, so $g \in h \circledcirc H$, and so there is $x \in H$ such that $h \circledcirc x = g$. Now, since $H$ is a subgroup, we can assure the existence of $x^{-1} \in H$ and if we add it by the right in both sides of the equation we get:
+		      \begin{align*}
+			      h \circledcirc x                       & = g                     \\
+			      (h \circledcirc x) \circledcirc x^{-1} & = g \circledcirc x^{-1} \\
+			      h \circledcirc (x \circledcirc x^{-1}) & = g \circledcirc x^{-1} \\
+				  h \circledcirc e &= g \circledcirc x^{-1}\\
+				  h &= g \circledcirc x^{-1}
+		      \end{align*}
+		and since $x^{-1} \in H$, we can say that $h \in g \circledcirc H$, that is $h \sim g$
+		\item \textbf{Transitive:} Suppose that $g \sim h$ and $h \sim j$, so we can affirm that $g \in h \circledcirc H$ and $h \in j \circledcirc H$, and hence, we can assure that there are $x_1, x_2 \in H$ such that:
+		\begin{align*}
+			h \circledcirc x_1 &= g & j \circledcirc x_2 &= h
+		\end{align*}
+		We can replace in the first equation and get:
+		\begin{align*}
+			h \circledcirc x_1 &= g\\
+			(j \circledcirc x_2) \circledcirc x_1 &= g\\
+			j \circledcirc (x_2 \circledcirc x_1) &= g
+		\end{align*}
+		And since $H$ is a subgroup, it is closed under $\circledcirc$ so $x_2 \circledcirc x_1 \in H$ and therefore $g \in j \circledcirc N$, that means that $g \sim j$.
+	\end{itemize}
+
+	So $\sim$ is a relation of equivalence. We denote the set of all equivalence classes as $G/N$ instead of $G/\sim$ to be clear to what group we are referring to. Note that the equivalence classes of each element is just the set of elements given by apply the operation over that element and elements of the subgroup.
+}
+
+\problem
+Let $H$ be a subgroup of a finite group $G$. Show that $|G| = |H| \cdot |G/H|$
+\solution{
+	For that, we are going to define a function $\phi$ as follows:
+	\begin{align*}
+		\begin{matrix}
+			\phi: &N \times G/H &\to & G\\
+			&(h, [j]) &\mapsto & idk
+		\end{matrix}
+	\end{align*}
+}
+
+
+\problem
+
+
+
+
+\end{document}
