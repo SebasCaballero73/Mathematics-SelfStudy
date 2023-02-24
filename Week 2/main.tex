@@ -1,0 +1,241 @@
+%========Top Matter=========== (fold)
+\documentclass[final,expand]{problemset}
+% For plot: pfdplots and settings
+\usepackage{pgfplots}
+\pgfplotsset{width=7cm,
+	compat=newest,
+	label style={font=\small},
+	legend style={font=\small}
+}
+%========top_matter=========== (end)
+
+\begin{document}
+\heading[Caballero]{Sebastián Caballero}{Self Study}{Problem set}{Week 2}
+
+\problem
+Let $V$ and $W$ be vector spaces over a field $K$. Let $\mathcal{B} = \{v_1, v_2, \dots,
+	v_n\}$ be a basis for $V$ and let $\{w_1, w_2, \dots, w_n\}$ be any
+vectors in
+$W$. There is a unique linear map \begin{align*}
+	\begin{matrix}
+		\phi: & V & \to & W \\
+	\end{matrix}
+\end{align*}
+Such that $\phi(v_i) = w_i$ for all $1 \le i \le n$
+
+\solution{
+	Since $\mathcal{B}$ is a basis for $V$, for any element $v \in V$ there are $a_1, a_2, \dots, a_n \in K$ such that:
+	\begin{align*}
+		v &= a_1v_1 + a_2v_2 + \dots + a_nv_n
+	\end{align*}
+	so if we define $\phi$ such that $\phi(v_i) = w_i$ then for any vector $v$ we would have:
+	\begin{align*}
+		\phi(v) &= a_1\phi(v_1) + a_2\phi(v_2) + \dots + a_n\phi(a_n)\\
+		&= a_1w_1 + a_2w_2 + \dots + a_nw_n
+	\end{align*}
+}
+
+\problem
+Suppose that $V$ is a finite dimensional vector space. Let $\mathcal{B} = \{v_1, v_2, \dots, v_n\}$ be a basis for $V$ then:
+\begin{itemize}
+	\item Any set of $w_1, w_2, \dots, w_n, w_{n+1}$ vectors is linearly dependent
+	\item Any set of $w_1, w_2, \dots, w_{n-1}$ vectors can't generate $V$
+\end{itemize}
+
+\solution{
+	For this, we are going to use the facts needed for a basis.
+	\begin{itemize}
+		\item Let $w_1, w_2, \dots, w_n, w_{n+1}$ be vectors in $V$, we can write them in the next way:
+		\begin{align*}
+			w_1 &= a_{1, 1}v_1 + a_{1, 2}v_2 + \dots + a_{1, n} v_n \\
+			w_2 &= a_{2, 1}v_1 + a_{2, 2}v_2 + \dots + a_{2, n} v_n  \\
+			\dots & \dots \\
+			w_n &= a_{n, 1}v_1 + a_{n, 2}v_2 + \dots + a_{n, n} v_n \\
+			w_{n+1} &= a_{n+1, 1}v_1 + a_{n+1, 2}v_2 + \dots + a_{n+1, n} v_n \\
+		\end{align*}
+		If there is a $w_i$ such that $w_i = 0$ we are done. Suppose then that this is not true, so for each $1 \le i \le n + 1$ exists $j$ such that $a_{i, j} \neq 0$. But since there are $w_{n+1}$ there must be $i_1, i_2$ such that for the same $j$, we have that $a_{i_1, j} \neq 0 \neq a_{i_2, j}$. So, we can express the vector $v_j$ as:
+		\begin{align*}
+			v_j &= \frac{w_{i_1}}{a_{i_1, j}} - \frac{a_{i_1, 1}v_1 + a_{i_1, 2}v_2 + \dots + a_{i_1, n}v_n}{a_{i_1, j}}\\
+			v_j &= \frac{w_{i_2}}{a_{i_2, j}} -\frac{a_{i_2, 1}v_1 + a_{i_2, 2}v_2 + \dots + a_{i_2, n}v_n}{a_{i_2, j}}
+		\end{align*}
+		And so the set is not linearly independent.
+
+		\item Let $w_1, w_2, \dots, w_{n-1}$ be vectors of $V$. Suppose that indeed we can generate $V$ with them, so in particular, we can write:
+		\begin{align*}
+			v_1 &= a_{1, 1}w_1 + a_{1, 2}w_2 + \dots + a_{1, {n-1}} w_{n-1} \\
+			v_2 &= a_{2, 1}w_1 + a_{2, 2}w_2 + \dots + a_{2, {n-1}} w_{n-1}  \\
+			\dots & \dots \\
+			v_n &= a_{n, 1}w_1 + a_{n, 2}w_2 + \dots + a_{n, {n-1}} w_{n-1} \\
+		\end{align*}
+		And since none of them is zero, we can be fure that for each $1 \le i \le n$ exists $j$ such that $a_{i, j} \neq 0$. But since there are $n$ vectors in $\mathcal{B}$ and just $n-1$ vectors $w_i$, there must be $i_1, i_2$ such that for the same $j$, we have that $a_{i_1, j} \neq 0 \neq a_{i_2, j}$. So, we can express the vector $v_j$ as:
+		\begin{align*}
+			w_j &= \frac{v_{i_1}}{a_{i_1, j}} - \frac{a_{i_1, 1}w_1 + a_{i_1, 2}w_2 + \dots + a_{i_1, n}w_n}{a_{i_1, j}}\\
+			w_j &= \frac{v_{i_2}}{a_{i_2, j}} -\frac{a_{i_2, 1}w_1 + a_{i_2, 2}w_2 + \dots + a_{i_2, n}w_n}{a_{i_2, j}}
+		\end{align*}
+		But then this let us generate two different linear combinations within $\mathcal{B}$ that give us the same result, contradicting the linear independency of $\mathcal{B}$.
+	\end{itemize}
+}
+
+\problem Let $V$ be a finite vector space. If $A = \{v_1, v_2, \dots, v_n\}$ generates $V$ then some subset of $A$ is a basis for $V$.
+
+\solution{
+    For that, let declare the next set:
+    \begin{align*}
+        S &= \{W \in \mathcal{P}(A) | W \text{ is linearly independent}\}
+    \end{align*}
+    We can assure that at least there is a maximal element $\{v_1, v_2, \dots, v_m\}$ in $S$ since we can assure the existence of $\{v_1\}$ and at most it can be $A$. Suppose then that it is not $A$, so $m < n$, and we can assure that any set $\{v_1, \dots, v_m, v_i\}$ is linearly dependent, with $m < i \le n$. Therefore we have:
+	\begin{align*}
+		a_1v_1 + \dots + a_nv_n + a_iv_i &= 0
+	\end{align*}
+	has more than the trivial solution, so we can suppose that 
+}
+
+\problem
+Let $A = \{v_1, v_2, \dots, v_n\}$ be a subset of a vector space $V$. Prove that $A$ is linearly independent if and only if the equation $a_1v_1 + a_2v_2 + \dots + a_nv_n = 0$ has the trivial solution.
+
+\solution{
+	We prove a double implication:
+	\begin{itemize}
+		\item[$\Rightarrow)$] If $A$ is linearly independent then by definition the equation $a_1v_1 + a_2v_2 + \dots + a_nv_n = 0$ has only one solution, the trivial one.
+		\item[$\Leftarrow)$] Suppose that $A$ is not linearly independent, so that there are two combinations of scalars $a_1, a_2, \dots, a_n$ and $b_1, b_2, \dots, b_n$ such that for a $v$ in $V$:
+		\begin{align*}
+			a_1v_1 + a_2v_2 + \dots + a_nv_n &= v\\
+			b_1v_1 + b_2v_2 + \dots + b_nv_n &= v
+		\end{align*}
+		And if we use the transitivity we have:
+		\begin{align*}
+			a_1v_1 + a_2v_2 + \dots + a_nv_n &= b_1v_1 + b_2v_2 + \dots + b_nv_n\\
+			(a_1 - b_1)v_1 + (a_2 - b_2)v_2 + \dots + (a_n - b_n)v_n &= 0
+		\end{align*} 
+		But note that $a_1 \neq b_1$, $a_2 \neq b_2$ and so on, so $a_1 - b_1 \neq 0$, $a_2 - b_2 \neq 0$ and so on, so the equation has another solution apart to the trivial one.
+	\end{itemize}
+}
+
+\problem
+Let $W$ be a subspace of a finite dimensional vector space $V$. Any basis for $W$ can be extended to a basis for $V$.
+
+\problem
+Prove the Rank theorem
+
+\problem
+Determine whether or not $\{(1, 1, 0), (2, 0, -1), (-3, 1, 1)\}$ is basis for $\mathbb{R}^3$
+
+\problem
+Let $\phi: V \to W$ be linear. Suppose that $v_1, \dots, v_n \in V$ are such that $\phi(v_1), \dots, \phi(v_n)$ are linearly independent in $W$. Show that $v_1, \dots, v_n$ are linearly independent.
+
+\solution{
+	For that, since $\phi(v_1), \dots, \phi(v_n)$ are linearly independent, we can assure that the equation:
+	\begin{align*}
+		a_1\phi(v_1) + a_2\phi(v_2) + \dots + a_n\phi(v_n) &= 0
+	\end{align*}
+	has only the trivial solution. Suppose that the equation:
+	\begin{align*}
+		b_1v_1 + b_2v_2 + \dots + b_nv_n &= 0
+	\end{align*}
+	has a solution that is not trivial. That this, we can assure that at least $b_1$ is not $0$. And if we apply to both sides the linear map $\phi$ we get:
+	\begin{align*}
+		\phi(b_1v_1 + b_2v_2 + \dots + b_nv_n) &= \phi(0)\\
+		\phi(b_1v_1) + \phi(b_2v_2) + \dots + \phi(b_nv_n) &= 0\\
+		b_1\phi(v_1) + b_2\phi(v_2) + \dots + b_n\phi(v_n) &= 0
+	\end{align*}
+	But this is a contradiction since this equation can only have the trivial solution. So we can conclude that $v_1, \dots v_n$.
+}
+
+\problem
+Let $V$ be a vector space over a field $k$ and let $U, W$ be finite dimensional subspaces of $V$. Prove that $U + W$ and $U \cap V$ are finite dimensional subspaces of $V$ and:
+\begin{align*}
+	\dim(U + W) + \dim(U \cap W) &= \dim U + \dim W
+\end{align*}
+
+\problem
+Show that the set of real numbers $\mathbb{R}$ is a vector space over the rational numbers $\mathbb{Q}$. Show that this is not a finite-dimensional vector space over $\mathbb{Q}$.
+
+\problem
+If $\{v_1, \dots, v_n\}$ is a basis for $V$ and $\{w_1, \dots, w_m\}$ is a basis for $W$ then:
+\begin{align*}
+	\{(v_1, 0), \dots, (v_n, 0), (0, w_1), \dots, (0, w_n)\}
+\end{align*}
+is a basis for $V \oplus W$
+
+\solution{
+	We need to prove two things:
+	\begin{itemize}
+		\item First, to prove that this set is linearly independent, we need to show that the homogeneous equation has only the trivial solution. So we have:
+		\begin{align*}
+			a_1(v_1, 0) + a_2(v_2, 0) + \dots + a_n(v_n, 0) + b_1(0, w_1) + b_2(0, w_2) + \dots + b_n(0, w_n) &= (0, 0)\\
+			(a_1v_1, 0) + (a_2v_2, 0) + \dots + (a_nv_n, 0) + (0, b_1w_1) + (0, b_2w_2) + \dots + (0, b_nw_n) &= (0, 0)\\
+			(a_1v_1 + a_2v_2 + \dots  +a_nv_n, b_1w_1 + b_2w_2 + \dots + b_nw_n) &= (0, 0)
+		\end{align*}
+		And this means that:
+		\begin{align*}
+			a_1v_1 + a_2v_2 + \dots  +a_nv_n &= 0\\
+			b_1w_1 + b_2w_2 + \dots + b_nw_n &= 0
+		\end{align*}
+		And since those vectors are basis for each vector space $a_1 = a_2 = \dots = a_n = b_1 = b_2 = \dots = b_n$.
+
+		\item For an element $(v, w) \in V \oplus W$, we know that $v$ can be expressed as a linear combination $a_1v_1 + a_2v_2 + \dots + a_nv_n = v$, and also $w$ can be expressed as $b_1w_1 + b_2w_2 + \dots + b_nv_n = w$, so the combination of the vectors in our set will rise:
+		\begin{align*}
+			a_1(v_1, 0) + a_2(v_2, 0) + \dots + a_n(v_n, 0) + b_1(0, w_1) + b_2(0, w_2) + \dots + b_n(0, w_n) = (v, w)
+		\end{align*}
+	\end{itemize}
+}
+
+\problem
+Let $V$ be a vector space over $K$ and let $W$ a subspace of $V$. With the  operations induced over $V / W$, this becomes a vector space.
+
+\problem
+Generalize the notions of external and internal direct sums to three or more summands.
+
+\solution{
+	For a set $V_1, V_2, \dots, V_n$ of vector spaces defined over the same field $K$, we define the external direct sum as:
+	\begin{align*}
+		\bigoplus_{i = 1}^n V_i &= \prod_{i = 1}^n V_I
+	\end{align*}
+	With the operations defined as:
+	\begin{align*}
+		(v_1, v_2, \dots, v_n) + (w_1, w_2, \dots w_n) &= (v_1 + w_1, v_2 + w_2, \dots, v_n + w_n) \\c(v_1, v_2, \dots, v_n) &= (cv_1, cv_2, \dots, cv_n)
+	\end{align*} 
+	which also produce a vector space. And let $V$ be a vector space, $\mathcal{V} = \{V_1, V_2, \dots, V_n\}$ a collection a subspaces of $V$. We define that $V$ is the internal sum of the elements of $\mathcal{V}$ if and only if there is a function $\eta: \bigoplus\limits_{i = 1}^n V_i \to V$ such that:
+	\begin{itemize}
+		\item $\eta(v_1, v_2, \dots, v_n) = v_1+v_2+\dots + v_n$
+		\item $\eta$ is monic
+		\item $\eta$ is epic
+	\end{itemize}
+}
+
+\problem
+Let $W$ be a subspace of the finite-dimensional vector space $V$. Show that there is a subspace $U$ of $V$ such that $V \cong U \oplus W$.
+
+\solution{
+	For this, define $U$ as follows:
+	\begin{align*}
+		U &:= V \setminus W \cup \{0\}
+	\end{align*}
+	First, we need to prove that this is a subspace of $V$:
+	\begin{quote}
+		Note that for any $v \in U$ different from $0$ and any $c \in K$, if $cv \in W$ then $c^{-1}cv = v \in W$ which contradicts the definition of $U$. If $u, w \in U$ are not both $0$, and if $u + w \in W$ then that means that $u, w \in W$ since $W$ is closed over the operations, which again, contradicts the definition for $U$, so $u + w \in U$. 
+	\end{quote}
+
+	Now, we want to prove that this is an internal sum of $V$, so we have:
+	\begin{itemize}
+		\item If $w \in W$ and $u \in U$ are such that $w + u = 0$, then we would have $w = -u$, which means that $w \in U$ and also that $u = -w \in V$, which means that since its only common element is $0$, $u = w = 0$.
+		\item For any element $v \in V$, there are two alternatives. If $v \in W$ then we can express $v$ as $v + 0$ and $0 \in U$. If $v \not\in W$ then $v \in U$ by definition and so $v = 0 + v$ with $0 \in W$. 
+	\end{itemize}	
+
+	And so we conclude that $U \oplus W$ is an internal sum of $V$.
+}
+
+\problem
+Prove that every vector space has a basis.
+
+\problem
+Prove that the set of all infinite sequences of $0's$ and $1's$ with component-wise addition and scalar multiplication modulo 2.
+
+\problem
+Can $\mathbb{C}$ be isomorphic to a subspace of $\mathbb{R}$?
+
+\problem
+Prove the binomial and the multinomial theorem for rings
+
+
+\end{document}
